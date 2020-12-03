@@ -15,7 +15,6 @@ use App\Models\order;
 use App\Models\order_details;
 use App\Models\gallery;
 use App\Models\statistical;
-use App\Models\comment_shop;
 use App\Models\rating;
 use Carbon\Carbon;
 use Auth;
@@ -48,15 +47,7 @@ public function insert_rating_shop(Request $request){
     echo "done";
 }
 
-public function send_comment_shop(Request $request){
-    $data = $request->all();
-    $comment_shop = new comment_shop();
-    $comment_shop->comment_name = $data['comment_name'];
-    $comment_shop->comment_content = $data['comment_content'];
-    $comment_shop->comment_shop_status = 1;
-    $comment_shop->shop_id = $data['shop_id'];
-    $comment_shop->save();
-}
+
 
 public function load_comment(Request $request){
     $shop_id = $request->shop_id;

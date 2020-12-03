@@ -9,7 +9,6 @@ Route::get('/register-shop','App\Http\Controllers\ShopController@register_shop')
 Route::post('/save-shop','App\Http\Controllers\ShopController@save_shop');
 Route::get('chi-tiet-shop&{shop_id}','App\Http\Controllers\ShopController@chitietshop');
 Route::post('/load-comment','App\Http\Controllers\ShopController@load_comment');
-Route::post('/send-comment-shop','App\Http\Controllers\ShopController@send_comment_shop');
 Route::post('/insert-rating-shop','App\Http\Controllers\ShopController@insert_rating_shop');
 //Category
 Route::get('danh-muc={category_slug}','App\Http\Controllers\CategoryProductController@show_category');
@@ -25,6 +24,7 @@ Route::post('change-password-cus','App\Http\Controllers\CheckoutController@chang
 //Product
 Route::get('allproduct','App\Http\Controllers\ProductController@allproduct');
 Route::get('chi-tiet-san-pham&{product_slug}&{shop_id}&dm={category_id}','App\Http\Controllers\ProductController@chitietsanpham');
+Route::post('/send-comment-product','App\Http\Controllers\ProductController@send_comment_product');
 //Cart
 Route::get('thanhtoan','App\Http\Controllers\CartController@payment');
 Route::get('cart','App\Http\Controllers\CartController@cart');

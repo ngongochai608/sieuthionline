@@ -14,6 +14,7 @@ use App\Models\category_product;
 use App\Models\order;
 use App\Models\order_details;
 use App\Models\gallery;
+use App\Models\comment_product;
 use Auth;
 session_start();
 
@@ -27,6 +28,21 @@ class ProductController extends Controller
          return Redirect::to('admin')->send();
      }
  }
+
+ public function send_comment_product(Request $request){
+    $data = $request->all();
+    $comment_product = new comment_product();
+    $comment_product->comment_name = $data['comment_name'];
+    $comment_product->comment_content = $data['comment_content'];
+    $comment_product->product_id = $data['product_id'];
+    $comment_product->save();
+
+    $order_details_id = $data['order_details_id'];
+    $order_details_id = order_details::find($order_details_id);
+    $order_details_id->comment_product = 1;
+    $order_details_id->save();
+}
+
 public function unactive_product($product_id){
     $this->AuthLogin();
     product::where('product_id',$product_id)->update(['product_status'=>3]);
@@ -65,7 +81,8 @@ public function active_product($product_id){
     $product_id = $product_chitiet->product_id;
     //gallery
     $gallery = gallery::where('product_id',$product_id)->get();
-    return view('pages.product.singleproduct')->with(compact('product_chitiet','related_product','shop','category_by_id','order_new','count_cart','product_relate','gallery','category'));
+    $comment_product = comment_product::where('product_id',$product_id)->get();
+    return view('pages.product.singleproduct')->with(compact('product_chitiet','related_product','shop','category_by_id','order_new','count_cart','product_relate','gallery','category','comment_product'));
 }
 
 public function all_product_admin(){

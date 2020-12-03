@@ -23,6 +23,24 @@ h6 {
   margin: 0 0 15px;
 }
 body { font-family:Arial, Helvetica, sans-serif; }
+.style_comment_show{
+  padding-top: 11px;
+  padding-left: 56px;
+}
+
+.comment_product_feeback{
+  margin-top: 25px;
+  margin-left: 27px;
+}
+.comment_product_feeback img{
+  clip-path: circle(50%);
+  height: 3em;
+  width: 3em;
+}
+
+.comment_product_feeback textarea{
+  width: 400px;height: 200px;
+}
 
 .info-shop{
   margin-top: 20px;
@@ -800,7 +818,7 @@ body { font-family:Arial, Helvetica, sans-serif; }
     padding: 11px 20px;
     text-transform: uppercase;
   }
-  input[type="submit"]:hover, button[type=submit]:hover {background-color: #222}
+
   .single-sidebar input[type="text"] {
     margin-bottom: 10px;
     width: 100%;

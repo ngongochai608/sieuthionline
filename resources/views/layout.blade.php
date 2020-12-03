@@ -217,99 +217,98 @@
     </script>
     <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
     <script>
-       CKEDITOR.replace('ckeditor');
-       CKEDITOR.replace('ckeditor1');
-       CKEDITOR.replace('ckeditor2');
-       CKEDITOR.replace('ckeditor3');
-       CKEDITOR.replace('id4');
-   </script>
+     CKEDITOR.replace('ckeditor');
+     CKEDITOR.replace('ckeditor1');
+     CKEDITOR.replace('ckeditor2');
+     CKEDITOR.replace('ckeditor3');
+     CKEDITOR.replace('id4');
+ </script>
 
-   <script type="text/javascript">
-        function remove_background(shop_id){
-            for(var count=1;count<=5;count++){
-                $('#'+shop_id+'-'+count).css('color','#ccc');
-            }
+ <script type="text/javascript">
+    function remove_background(shop_id){
+        for(var count=1;count<=5;count++){
+            $('#'+shop_id+'-'+count).css('color','#ccc');
         }
-       $(document).on('mouseenter','.rating',function(){
-            var index = $(this).data("index");
-            var shop_id = $(this).data("shop_id");
-            remove_background(shop_id);
-            for(var count=1;count<=index;count++){
-                $('#'+shop_id+'-'+count).css('color','#ffcc00');
-            }
-       });
-
-       $(document).on('mouseleave','.rating',function(){
-            var index = $(this).data("index");
-            var shop_id = $(this).data("shop_id");
-            var rating = $(this).data("rating");
-            remove_background(shop_id);
-            for(var count=1;count<=rating;count++){
-                $('#'+shop_id+'-'+count).css('color','#ffcc00');
-            }
-       });
-
-       $(document).on('click','.rating',function(){
-            var index = $(this).data("index");
-            var shop_id = $(this).data("shop_id");
-            var feedback_id = $(this).data("feedback_id");
-            var customer_name = $(this).data("customer_name");
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: "{{url('/insert-rating-shop')}}",
-                method: 'POST',
-                data:{index:index,shop_id:shop_id,feedback_id:feedback_id,customer_name:customer_name,_token:_token},
-                success:function(data){
-                    if (data=='done'){
-                        alert('Cảm ơn bạn đã đánh giá');
-                        location.reload();
-                    }else{
-                        alert('Lỗi đánh giá');
-                    }
-                }
-            });    
-       });
-
-   </script>
-
-   <script type="text/javascript">
-       $(document).ready(function(){
-        load_comment();
-        function load_comment(){
-            var shop_id = $('.comment_shop_id').val();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: '{{url('/load-comment')}}',
-                method: 'POST',
-                data:{shop_id:shop_id,_token:_token},
-                success:function(data){
-                    $('#comment_show').html(data);
-                }
-            });    
+    }
+    $(document).on('mouseenter','.rating',function(){
+        var index = $(this).data("index");
+        var shop_id = $(this).data("shop_id");
+        remove_background(shop_id);
+        for(var count=1;count<=index;count++){
+            $('#'+shop_id+'-'+count).css('color','#ffcc00');
         }
-        $('.send-comment-shop').click(function(){
-            var shop_id = $('.comment_shop_id').val();
-            var comment_name = $('.comment_name').val();
-            var comment_content = $('.comment_content').val();
-            var _token = $('input[name="_token"]').val();
-            $.ajax({
-                url: '{{url('/send-comment-shop')}}',
-                method: 'POST',
-                data:{shop_id:shop_id,comment_name:comment_name,comment_content:comment_content,_token:_token},
-                success:function(data){
-                    $('#notify_comment').html('<span class="alert alert-success">Thêm bình luận thành công, đang chờ quản trị viên xét duyệt!</span>')
-                    load_comment();
-                    $('#notify_comment').fadeOut(20000);
-                    $('.comment_name').val('');
-                    $('.comment_content').val('');
-                }
-            });   
-        });
     });
+
+    $(document).on('mouseleave','.rating',function(){
+        var index = $(this).data("index");
+        var shop_id = $(this).data("shop_id");
+        var rating = $(this).data("rating");
+        remove_background(shop_id);
+        for(var count=1;count<=rating;count++){
+            $('#'+shop_id+'-'+count).css('color','#ffcc00');
+        }
+    });
+
+    $(document).on('click','.rating',function(){
+        var index = $(this).data("index");
+        var shop_id = $(this).data("shop_id");
+        var feedback_id = $(this).data("feedback_id");
+        var customer_name = $(this).data("customer_name");
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: "{{url('/insert-rating-shop')}}",
+            method: 'POST',
+            data:{index:index,shop_id:shop_id,feedback_id:feedback_id,customer_name:customer_name,_token:_token},
+            success:function(data){
+                if (data=='done'){
+                    alert('Cảm ơn bạn đã đánh giá');
+                    location.reload();
+                }else{
+                    alert('Lỗi đánh giá');
+                }
+            }
+        });    
+    });
+
 </script>
 
 <script type="text/javascript">
- $(document).ready(function() {
+ $(document).ready(function(){
+    load_comment();
+    function load_comment(){
+        var shop_id = $('.comment_shop_id').val();
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: '{{url('/load-comment')}}',
+            method: 'POST',
+            data:{shop_id:shop_id,_token:_token},
+            success:function(data){
+                $('#comment_show').html(data);
+            }
+        });    
+    }
+    $('.send-comment-product').click(function(){
+        var product_id = $('.product_id').val();
+        var comment_name = $('.comment_name').val();
+        var comment_content = $('.comment_content').val();
+        var order_details_id = $('.order_details_id').val();
+        var _token = $('input[name="_token"]').val();
+
+        $.ajax({
+            url: '{{url('/send-comment-product')}}',
+            method: 'POST',
+            data:{order_details_id:order_details_id,product_id:product_id,comment_name:comment_name,comment_content:comment_content,_token:_token},
+            success:function(data){
+                alert('Cảm ơn bạn đã đánh giá về sản phẩm!');
+                location.reload();
+            }
+        });   
+    });
+});
+</script>
+
+<script type="text/javascript">
+   $(document).ready(function() {
     $('#imageGallery').lightSlider({
         gallery:true,
         item:1,
@@ -433,5 +432,5 @@
                 });
             });
         </script>
-  </body>
-  </html>
+    </body>
+    </html>

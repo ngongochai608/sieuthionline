@@ -46,10 +46,57 @@
                   @elseif($order_cus->order_status==3)
                   <p style="color: green;">Đã giao hàng</p>
                   @endif
-                  @if($order_cus->order_status==3 && $order_cus->feedback!=1)
-                  <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#myModal">Đánh giá gian hàng</button>
+
+                  @if($order_cus->order_status==3 && $order_cus->comment_product!=1)
+                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#comment_product">Đánh giá sản phẩm</button><br/>
+                  <div class="modal fade" id="comment_product" role="dialog">
+                    <div class="modal-dialog modal-xs">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Hãy viết đánh giá của bạn về sản phẩm này</h4>
+                        </div>
+                        <div class="form-group">
+                          <div class="row comment_product_feeback">
+                            <div class="col-md-2">
+                              <img src="{{asset('public/frontend/images/avatar_customer.png')}}" width="100%" class="img-thumbnail">
+                            </div>
+                            <div class="col-md-9">
+                              <form>
+                                @csrf
+                                <div id="notify_comment"></div>
+                                <div class="form-group">
+                                  <?php
+                                  $customer_name = Session::get('customer_name');
+                                  ?>
+                                  <input type="hidden" name="comment_name" class="comment_name" value="{{$customer_name}}">
+                                  <input type="hidden" name="product_id" class="product_id" value="{{$order_cus->product_id}}">
+                                  <input type="hidden" name="order_details_id" class="order_details_id" value="{{$order_cus->order_details_id}}">
+                                  <textarea name="comment_content" class="form-control comment_content"></textarea>
+                                  <p></p>
+                                  <button type="button" class="btn btn-primary send-comment-product">Gửi đánh giá</button>
+                                </div>
+                              </form>                 
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  @elseif($order_cus->order_status==3 && $order_cus->comment_product==1)
+                  <p class="text text-secondary">Đã đánh giá sản phẩm</p>
+                  @endif
+
+                                    @if($order_cus->order_status==3 && $order_cus->feedback!=1)
+                  <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#rating_shop">Đánh giá gian hàng</button>
+                  
                   <!-- Modal -->
-                  <div class="modal fade" id="myModal" role="dialog">
+                  <div class="modal fade" id="rating_shop" role="dialog">
                     <div class="modal-dialog modal-sm">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -72,11 +119,12 @@
                           @endfor
                         </ul>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <!-- End Modal -->
                   @elseif($order_cus->order_status==3 && $order_cus->feedback==1)
                   <p class="text text-primary">Đã đánh giá gian hàng</p>

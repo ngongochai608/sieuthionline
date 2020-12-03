@@ -40,8 +40,7 @@
   <div class="profile_shop"></div>
   <div class="tab_profile_shop">
     <button class="tablinks" onclick="openCity(event, 'product')">Sản phẩm</button>
-    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'ViewComment')">Đánh giá</button>
-    <button class="tablinks" onclick="openCity(event, 'comment')">Viết đánh giá</button>
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'ViewComment')">Xem đánh giá</button>
   </div>
   <div id="product" class="tabcontent_profile_shop">
     <div class="row">
@@ -99,33 +98,6 @@
       </div>
     </form>
   </div>
-
-  <!-- <div id="comment" class="tabcontent_profile_shop">
-    <h4 class="display-4">Đánh giá về gian hàng</h4>
-    <hr>
-    <div class="row">
-      <div class="col-md-2">
-        <img src="{{asset('public/frontend/images/avatar_customer.png')}}" width="120px" height="120px" class="img-thumbnail">
-      </div>
-      <div class="col-md-9">
-        <form>
-          @csrf
-          <div id="notify_comment"></div>
-          <div class="form-group">
-            <?php
-            $customer_name = Session::get('customer_name');
-            ?>
-            <input type="hidden" name="comment_name" class="comment_name" value="{{$customer_name}}">
-            <textarea style="width: 500px;height: 200px;" name="comment_content" class="form-control comment_content"></textarea>
-            <p></p>
-            <button type="button" class="btn btn-primary send-comment-shop">Gửi đánh giá</button>
-          </div>
-        </form>                 
-      </div>
-    </div>
-  </div> -->
-
-
   
 </div>
 </div>

@@ -106,21 +106,24 @@
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Đánh giá về sản phẩm</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                    <div role="tabpanel" class="tab-pane fade in active" id="home" style="padding-left: 56px;">
                         <h2>MÔ TẢ SẢN PHẨM</h2>  
                         <p>{!!$product_chitiet->product_desc!!}</p>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="profile">
-                        <div class="row">
+                        @foreach($comment_product as $key => $comment_val)
+                        <div class="row style_comment_show">
                             <div class="col-md-1">
-                                <img src="public/frontend/images/user.jpg" width="100%" class="img-thumbnail">
+                                <img src="public/frontend/images/account.png" width="40" height="40">
                             </div>
                             <div class="col-md-10">
-                                <p class="text text-primary" style="margin-bottom:-2px;">Hải đẹp trai</p>
-                                <span class="text text-muted">02-12-2020</span>
-                                <p>Những câu thơ hay về cuộc sống vô cùng ngắn gọn mà sâu sắc, để ta hiểu hơn về những thăng trầm trong cuộc sống, hiểu hơn về lòng người, hiểu hơn về nhân sinh. Những câu thơ hay về cuộc sống mang triết lý về cuộc sống, để chúng ta đủ thương, đủ bao dung, để để hiểu chuyện – dài lâu…</p>
+                                <p class="text text-primary" style="margin-bottom:-2px;">{{$comment_val->comment_name}}</p>
+                                <span class="text text-muted">{{$comment_val->comment_date}}</span>
+                                <p style="margin-top: 10px;">{{$comment_val->comment_content}}</p>
                             </div>
                         </div>
+                        <hr>
+                        @endforeach
                     </div>
                 </div>
             </div>
