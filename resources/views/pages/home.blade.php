@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
 <div class="slider-area">
+    change
    <!-- Slider -->
    <div class="block-slider block-slider4">
     <ul class="" id="bxslider-home4">
