@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+abcd
 <div class="slider-area">
    <!-- Slider -->
    <div class="block-slider block-slider4">
