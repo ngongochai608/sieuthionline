@@ -3,7 +3,7 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
-            <strong>Đổi mật khẩu tài khoản quản trị viên</strong>
+            <strong>Đổi mật khẩu</strong>
         </div>
         <?php
         $message = Session::get('message');

@@ -114,8 +114,9 @@ public function SiginCustomer(Request $request){
   'name_customer' => 'required|min:6|max:40',
   'email_customer' => 'required|email|unique:tbl_customer,customer_email|unique:tbl_shop,shop_email|unique:tbl_admin,admin_email',
   'phone_customer' => 'required|numeric',
+  'phone_customer' => 'required|regex:/(0)[0-9]{9}/|max:10',
   'password_customer' => 'required|min:6|max:20',
-  'password_customer_confirm' => 'required|same:password_customer',
+  'address_customer' => 'required|max:150',
 ];
 $messages = [
   'name_customer.required' => 'Trường họ tên không được để trống !',
@@ -127,7 +128,8 @@ $messages = [
   'email_customer.unique' => 'Email này đã tồn tại trong hệ thống!',
 
   'phone_customer.required' => 'Trường số điện thoại không được để trống !',
-  'phone_customer.numeric' => 'Trường số điện thoại không hợp lệ ,số điện thoại phải là ký tự số !',
+  'phone_customer.regex' => 'Số điện thoại không hợp lệ , số điện thoại phải là ký tự số bắt đầu bằng 0 và theo sao là 9 chữ số !',
+  'phone_customer.max' => 'Số điện thoại không không được vượt quá 10 số !',
 
   'password_customer.required' => 'Trường mật khẩu không được để trống !',
   'password_customer.min' => 'Trường mật khẩu không được nhỏ hơn 6 ký tự !',
@@ -135,6 +137,9 @@ $messages = [
 
   'password_customer_confirm.required' => 'Trường nhập lại mật khẩu không được để trống !',
   'password_customer_confirm.same' => 'Mật khẩu nhập không khớp với mật khẩu ở trên !',
+
+  'address_customer.required' => 'Bạn chưa nhập địa chỉ !',
+  'address_customer.max' => 'Địa chỉ không được vượt quá 150 ký tự !',
 ];
 
 $validator = Validator::make($request->all(),$rules,$messages);
@@ -147,6 +152,7 @@ if ($validator->fails()) {
   $customer->customer_email = $data['email_customer'];
   $customer->customer_password = md5($data['password_customer']);
   $customer->customer_phone = $data['phone_customer'];
+  $customer->customer_address = $data['address_customer'];
   $customer->save();
   return Redirect('register-customer')->with('message','Đăng ký tài khoản khách hàng thành công !');
 }        

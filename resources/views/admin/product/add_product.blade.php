@@ -69,15 +69,7 @@
                         <p class="alert alert-danger">{{ $errors->first('product_price') }}</p>                  
                     @endif</div>*đồng
                 </div>
-                <div class="row form-group">
-                    <div class="col col-md-3"><label for="select" class=" form-control-label">Tình trạng</label></div>
-                    <div class="col-12 col-md-3">
-                        <select name="product_status" id="select" class="form-control">
-                            <option value="0">Hiển thị</option>
-                            <option value="1">Ẩn</option>
-                        </select>
-                    </div>
-                </div>
+                <input type="hidden" name="product_status" value="0">
                 <div class="row form-group">
                     <input style="margin: 0px auto;" type="submit" name="" value="Thêm sản phẩm" class="btn btn-primary btn-sm">
                 </div>

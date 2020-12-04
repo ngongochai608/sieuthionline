@@ -275,18 +275,19 @@ public function chitietshop($shop_id){
 }
 public function save_shop(Request $request){
     $rules=[
-        'shop_name' => 'required|min:6|max:40',
+        'shop_name' => 'required|min:6|max:40|unique:tbl_shop,shop_name',
         'shop_email' => 'required|email|unique:tbl_shop,shop_email|unique:tbl_customer,customer_email|unique:tbl_admin,admin_email',
         'shop_password' => 'required|min:6|max:30',
         'shop_password_confirm' => 'required|same:shop_password',
         'shop_address' => 'required|min:10|max:200',
-        'shop_phone' => 'required|numeric',
+        'shop_phone' => 'required|regex:/(0)[0-9]{9}/|max:10',
     ];
     $messages = [
             //name
         'shop_name.required' => 'Tên không được để trống !',
         'shop_name.min' => 'Tên không được ít hơn 6 ký tự !',
         'shop_name.max' => 'Tên không được nhiều hơn 40 ký tự !',
+        'shop_name.unique' => 'Tên gian hàng này đã có người đặt , bạn vui lòng chọn tên khác !',
 
         'name_shop_owner.required' => 'Tên không được để trống !',
         'name_shop_owner.min' => 'Tên không được ít hơn 6 ký tự !',
@@ -301,7 +302,8 @@ public function save_shop(Request $request){
         'shop_address.max' => 'Địa chỉ không được nhiều hơn 200 ký tự !',
             //phone
         'shop_phone.required' => 'Số điện thoại không được để trống !',
-        'shop_phone.numeric' => 'Số điện thoại phải là ký tự số !',
+        'shop_phone.regex' => 'Số điện thoại không hợp lệ , số điện thoại phải là ký tự số bắt đầu bằng 0 và theo sao là 9 chữ số !',
+        'shop_phone.max' => 'Số điện thoại không không được vượt quá 10 số !',
             //password
         'shop_password.required' => 'Mật khẩu không được để trống !',
         'shop_password.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự !',
@@ -375,18 +377,20 @@ public function add_shop_admin(){
 public function save_shop_admin(Request $request){
     $this->AuthLogin();
     $rules=[
-        'shop_name' => 'required|min:6|max:40',
+        'shop_name' => 'required|min:6|max:40|unique:tbl_shop,shop_name',
         'name_shop_owner' => 'required|min:6|max:40',
-        'shop_email' => 'required|email|unique:tbl_shop,shop_email',
+        'shop_email' => 'required|email|unique:tbl_shop,shop_email|unique:tbl_customer,customer_email|unique:tbl_admin,admin_email',
         'shop_password' => 'required|min:6|max:30',
+        'shop_password_confirm' => 'required|same:shop_password',
         'shop_address' => 'required|min:10|max:200',
-        'shop_phone' => 'required|numeric',
+        'shop_phone' => 'required|regex:/(0)[0-9]{9}/|max:10',
     ];
     $messages = [
             //name
         'shop_name.required' => 'Tên không được để trống !',
         'shop_name.min' => 'Tên không được ít hơn 6 ký tự !',
         'shop_name.max' => 'Tên không được nhiều hơn 40 ký tự !',
+        'shop_name.unique' => 'Tên gian hàng này đã có người đặt , bạn vui lòng chọn tên khác !',
             //name shop awner
         'name_shop_owner.required' => 'Tên không được để trống !',
         'name_shop_owner.min' => 'Tên không được ít hơn 6 ký tự !',
@@ -401,11 +405,15 @@ public function save_shop_admin(Request $request){
         'shop_address.max' => 'Địa chỉ không được nhiều hơn 200 ký tự !',
             //phone
         'shop_phone.required' => 'Số điện thoại không được để trống !',
-        'shop_phone.numeric' => 'Số điện thoại phải là ký tự số !',
+        'shop_phone.regex' => 'Số điện thoại không hợp lệ , số điện thoại phải là ký tự số bắt đầu bằng 0 và theo sao là 9 chữ số !',
+        'shop_phone.max' => 'Số điện thoại không không được vượt quá 10 số !',
             //password
         'shop_password.required' => 'Mật khẩu không được để trống !',
         'shop_password.min' => 'Mật khẩu không được nhỏ hơn 6 ký tự !',
         'shop_password.max' => 'Mật khẩu không được lớn hơn 30 ký tự !',
+
+        'shop_password_confirm.required' => 'Bạn chưa nhập mật khẩu xác thực!',
+        'shop_password_confirm.same' => 'Mật khẩu xác nhận không chính xác !',
     ];
 
     $validator = Validator::make($request->all(),$rules,$messages);
@@ -420,7 +428,7 @@ public function save_shop_admin(Request $request){
         $shop->shop_password = md5($data['shop_password']);
         $shop->shop_address = $data['shop_address'];
         $shop->shop_phone = $data['shop_phone'];
-        $shop->shop_status = 0;
+        $shop->shop_status = 1;
         $shop->create_at = now();
         $shop->save();
         return Redirect::to('add-shop-admin')->with('message','Thêm gian hàng thành công !');
@@ -473,7 +481,6 @@ public function update_shop_admin(Request $request,$shop_id){
     }else{
         $data = $request->all();
         $shop = shop::find($shop_id);
-        $shop->shop_name = $data['shop_name'];
         $shop->shop_password = md5($data['shop_password']);
         $shop->shop_phone = $data['shop_phone'];
         $shop->shop_address = $data['shop_address'];

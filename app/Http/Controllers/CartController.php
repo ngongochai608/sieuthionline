@@ -41,8 +41,10 @@ class CartController extends Controller
             $count_cart = count($cart);
         }else{
             $count_cart=0;
-        }   
-    	return view('pages.cart.payment')->with(compact('count_cart'));
+        }
+        $customer_id = Session::get('customer_id');
+        $customer = customer::where('customer_id',$customer_id)->first();   
+    	return view('pages.cart.payment')->with(compact('count_cart','customer'));
     }
 
     public function update_cart(Request $request){

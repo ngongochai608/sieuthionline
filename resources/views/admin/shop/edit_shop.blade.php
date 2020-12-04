@@ -17,14 +17,6 @@
             <form action="{{URL::to('/update-shop-admin/'.$s->shop_id)}}" method="post" enctype="multipart/form-data" class="form-horizontal">
                 {{ csrf_field() }}
                 <div class="row form-group">
-                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên gian hàng</label></div>
-                    <div class="col-12 col-md-6"><input type="text" id="slug" name="shop_name" class="form-control" value="{{ $s->shop_name }}">
-                    @if($errors->has('shop_name'))
-                        <p class="alert alert-danger">{{ $errors->first('shop_name') }}</p>                  
-                    @endif
-                    </div>
-                </div>
-                <div class="row form-group">
                     <div class="col col-md-3"><label for="file-input" class=" form-control-label">Mật khẩu</label></div>
                     <div class="col-12 col-md-6"><input type="password" name="shop_password" class="form-control" value="******">
                     @if($errors->has('shop_password'))
@@ -32,7 +24,7 @@
                     @endif</div>
                 </div>
                 <div class="row form-group">
-                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Mật khẩu</label></div>
+                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Nhập lại mật khẩu</label></div>
                     <div class="col-12 col-md-6"><input type="password" name="shop_password_confirm" class="form-control" value="******">
                     @if($errors->has('shop_password_confirm'))
                         <p class="alert alert-danger">{{ $errors->first('shop_password_confirm') }}</p>                  

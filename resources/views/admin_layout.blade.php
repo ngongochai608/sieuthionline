@@ -94,16 +94,6 @@
                         </ul>
                     </li>
                     @endhasanyroles
-                    @hasanyroles(['admin','author'])
-                    <li class="menu-title">Đánh giá</li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Đánh giá chờ duyệt</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="{{URL::to('/all-comment-shop-admin')}}">Đánh giá gian hàng</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="#">Đánh giá sản phẩm</a></li>                           
-                        </ul>
-                    </li>
-                    @endhasanyroles
                     @hasanyroles(['admin','author','logistics'])
                     <li class="menu-title">Đơn hàng</li>
                     <li class="menu-item-has-children dropdown">

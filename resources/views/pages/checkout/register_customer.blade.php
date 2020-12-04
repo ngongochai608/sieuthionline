@@ -51,6 +51,11 @@
                                 <p class="alert alert-danger">{{ $errors->first('password_customer_confirm') }}</p>
                                 @endif
                             </div>
+                            <div class="form-group">
+                                <input type="text" name="address_customer" placeholder="Địa chỉ" class="form-control">@if($errors->has('address_customer'))
+                                <p class="alert alert-danger">{{ $errors->first('address_customer') }}</p>
+                                @endif
+                            </div>
                             <div class="row form-group">
                                 <div class="col-12 col-md-9">Bạn đã có tài khoản?<a href="{{URL::to('/login-customer')}}"><strong style="color: #ee4d2d;"> Đăng nhập</strong></a></div>
                             </div>

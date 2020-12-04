@@ -74,8 +74,9 @@ public function save_user(Request $request){
    $rules=[
       'admin_name' => 'required|min:6|max:40',
       'admin_email' => 'required|email|unique:tbl_admin,admin_email',
-      'admin_phone' => 'required|numeric',
+      'admin_phone' => 'required|regex:/(0)[0-9]{9}/|max:10',
       'admin_password' => 'required|min:6|max:16',
+      'admin_password_confirm' => 'required|same:admin_password',
    ];
    $messages = [
             //name
@@ -88,11 +89,15 @@ public function save_user(Request $request){
       'admin_email.unique' => 'Email này đã tồn tại !',
             //phone
       'admin_phone.required' => 'Trường số điện thoại không được để trống !',
-      'admin_phone.numeric' => 'Trường số điện thoại không hợp lệ ,số điện thoại phải là ký tự số !',
+      'admin_phone.regex' => 'Số điện thoại không hợp lệ , số điện thoại phải là ký tự số bắt đầu bằng 0 và theo sao là 9 chữ số !',
+      'admin_phone.max' => 'Số điện thoại không không được vượt quá 10 số !',
             //password
       'admin_password.required' => 'Trường mật khẩu không được để trống !',
       'admin_password.min' => 'Trường mật khẩu không được nhỏ hơn 6 ký tự !',
       'admin_password.max' => 'Trường mật khẩu không được lớn hơn 16 ký tự !',
+
+      'admin_password_confirm.required' => 'Bạn chưa nhập xác nhận mật khẩu !',
+      'admin_password_confirm.same' => 'Mật khẩu xác nhận không chính xác !',
    ];
    $validator = Validator::make($request->all(),$rules,$messages);
    if ($validator->fails()) {
@@ -103,9 +108,10 @@ public function save_user(Request $request){
       $admin->admin_name = $data['admin_name'];
       $admin->admin_email = $data['admin_email'];
       $admin->admin_phone = $data['admin_phone'];
+      $admin->admin_address = $data['admin_address'];
       $admin->admin_password = md5($data['admin_password']);
       $admin->save();
-      return redirect('add-user')->with('message','Thêm tài khoản user thành công !');
+      return redirect('add-user')->with('message','Thêm tài khoản quản trị viên thành công !');
    }
 }
 

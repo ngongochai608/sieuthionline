@@ -135,16 +135,18 @@ class CategoryProductController extends Controller
             $get_image = $request->file('category_product_image');
 
             if($get_image){
-                $new_image = rand(0,99).'.'.$get_image->getClientOriginalName();
-                $get_image->move('public/uploads/category_product',$new_image);
-                $data['category_image'] = $new_image;
-                DB::table('tbl_category_product')->where('category_id',$category_id)->update($data);
-                Session::put('message','Cập nhập danh mục sản phẩm thành công !');
-                return Redirect::to('/add-category-product-admin');         
-            }
-            $data['category_image'] = '';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image =  $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/uploads/category_product',$new_image);
+            $data['category_product_image'] = $new_image;
             DB::table('tbl_category_product')->where('category_id',$category_id)->update($data);
-            return Redirect::to('/add-category-product-admin')->with('message','Cập nhập danh mục sản phẩm thành công !');
+            Session::put('message','Cập nhật danh mục sản phẩm thành công');
+            return Redirect::to('all-category-product-admin');   
+            }
+            DB::table('tbl_category_product')->where('category_id',$category_id)->update($data);
+            Session::put('message','Cập nhật danh mục sản phẩm thành công');
+            return Redirect::to('all-category-product-admin');
         }
     }
 }

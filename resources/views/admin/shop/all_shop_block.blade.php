@@ -3,7 +3,7 @@
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <div class="page-header float-left">
                     <div class="page-title">
                         <h1>Tài khoản gian hàng bị khóa</h1>
@@ -14,17 +14,6 @@
                             Session::put('message',null);
                         }
                         ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Trang chủ</a></li>
-                            <li><a href="#">Gian hàng</a></li>
-                            <li class="active">Tài khoản gian hàng bị khóa</li>
-                        </ol>
                     </div>
                 </div>
             </div>

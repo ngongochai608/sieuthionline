@@ -22,6 +22,15 @@ class OrderController extends Controller
     return Redirect::to('order-shop')->with('message','Đã xác nhận đơn hàng');
     }
 
+    public function delete_order_admin($order_code){
+        $order = order::where('order_code',$order_code)->first();
+        $order_details = order_details::where('order_code',$order_code)->delete();
+        $shipping_id = $order->shipping_id;
+        $order->delete();
+        $shipping = shipping::where('shipping_id',$shipping_id)->delete();
+        return Redirect::to('manager-order')->with('message','Xóa đơn hàng thành công');
+    }
+
     public function print_order($checkout_code){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->print_order_convert($checkout_code));

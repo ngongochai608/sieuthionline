@@ -39,14 +39,12 @@ Route::get('add-gallery-product-shop&{product_id}','App\Http\Controllers\Gallery
 Route::get('/admin','App\Http\Controllers\AdminController@index');
 Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 Route::get('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
-//Comment
-Route::get('/all-comment-shop-admin','App\Http\Controllers\CommentController@all_comment_shop_admin');
-Route::get('/active-comment-shop-admin/{comment_shop_id}','App\Http\Controllers\CommentController@active_comment_shop_admin');
-Route::get('/delete-comment-shop-admin/{comment_shop_id}','App\Http\Controllers\CommentController@delete_comment_shop_admin');
+
 //Order
 Route::get('manager-order','App\Http\Controllers\OrderController@manager_order');
 Route::get('print-order/{checkout_code}','App\Http\Controllers\OrderController@print_order');
 Route::get('view-details-order&{order_code}','App\Http\Controllers\OrderController@view_details_order');
+Route::get('delete-order-admin&{order_code}','App\Http\Controllers\OrderController@delete_order_admin');
 Route::post('update-order-quantity','App\Http\Controllers\OrderController@update_order_quantity');
 //Shop
 Route::get('add-shop-admin','App\Http\Controllers\ShopController@add_shop_admin')->middleware('admin.roles');

@@ -3,7 +3,7 @@
 <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
-                    <div class="col-sm-5">
+                    <div class="col-sm-12">
                         <div class="page-header float-left">
                             <div class="page-title">
                                 <h1>Liệt kê đơn hàng</h1>
@@ -14,17 +14,6 @@
                                     Session::put('message',null);
                                 }
                                 ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Đơn hàng</a></li>
-                                    <li class="active">Liệt kê đơn hàng</li>
-                                </ol>
                             </div>
                         </div>
                     </div>
@@ -74,7 +63,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{URL::to('view-details-order&'.$ord->order_code)}}" class="btn btn-success">Chi tiết</a> | 
-                                                <a href="{{URL::to('')}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa danh mục này ko?')">Xóa</a>
+                                                <a href="{{URL::to('delete-order-admin&'.$ord->order_code)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa đơn hàng này không?')">Xóa</a>
                                             </td>
                                             @php
                                             $stt++;

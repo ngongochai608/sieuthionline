@@ -3,7 +3,7 @@
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <div class="page-header float-left">
                     <div class="page-title">
                         <h1>Tài khoản users</h1>
@@ -19,17 +19,6 @@
                             Session::put('message_error',null);
                         }
                         ?>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Quản trị viên</a></li>
-                            <li class="active">Tài khoản users</li>
-                        </ol>
                     </div>
                 </div>
             </div>
@@ -92,8 +81,8 @@
                                     </td>
 
                                     <td> 
-                                        <input class="btn btn-primary btn-sm" type="submit" name="cap-quyen" value="Cấp quyền">
-                                        <a style="margin:5px 0;" href="{{URL::to('/delete-user-roles/'.$user->admin_id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có thật sự muốn xóa này khoản user này không?')">Xóa User</a>
+                                        <input class="btn btn-primary btn-sm" type="submit" name="cap-quyen" value="Cấp quyền" onclick="return confirm('Bạn có thật sự muốn cấp quyền cho tài khoản này không?')">
+                                        <a style="margin:5px 0;" href="{{URL::to('/delete-user-roles/'.$user->admin_id)}}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có thật sự muốn xóa tài khoản này không?')">Xóa User</a>
                                     </tr>
                                     </form>
                                     @endforeach    

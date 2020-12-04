@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên gian hàng</label></div>
+                    <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên chủ gian hàng</label></div>
                     <div class="col-12 col-md-6"><input type="text" name="name_shop_owner" class="form-control">
                     @if($errors->has('name_shop_owner'))
                         <p class="alert alert-danger">{{ $errors->first('name_shop_owner') }}</p>                  
@@ -44,6 +44,13 @@
                     <div class="col-12 col-md-6"><input type="password" name="shop_password" class="form-control">
                     @if($errors->has('shop_password'))
                         <p class="alert alert-danger">{{ $errors->first('shop_password') }}</p>                  
+                    @endif</div>
+                </div>
+                <div class="row form-group">
+                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Nhập lại mật khẩu</label></div>
+                    <div class="col-12 col-md-6"><input type="password" name="shop_password_confirm" class="form-control">
+                    @if($errors->has('shop_password_confirm'))
+                        <p class="alert alert-danger">{{ $errors->first('shop_password_confirm') }}</p>                  
                     @endif</div>
                 </div>
                 <div class="row form-group">

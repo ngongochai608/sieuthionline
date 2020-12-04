@@ -51,9 +51,16 @@
                     @if($errors->has('phone_customer'))
                         <p class="alert alert-danger">{{ $errors->first('phone_customer') }}</p>                  
                     @endif</div>
-                </div>           
+                </div>
                 <div class="row form-group">
-                    <input style="margin: 0px auto;" type="submit" name="" value="Thêm khách hàng" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc là muốn thêm tài khoản customer này ko?')">
+                    <div class="col col-md-3"><label for="file-input" class=" form-control-label">Địa chỉ</label></div>
+                    <div class="col-12 col-md-6"><input type="text" name="address_customer" class="form-control">
+                    @if($errors->has('address_customer'))
+                        <p class="alert alert-danger">{{ $errors->first('address_customer') }}</p>
+                    @endif</div>
+                </div>            
+                <div class="row form-group">
+                    <input style="margin: 0px auto;" type="submit" name="" value="Thêm khách hàng" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc là muốn thêm tài khoản khách hàng này không?')">
                 </div>
             </form>
         </div>

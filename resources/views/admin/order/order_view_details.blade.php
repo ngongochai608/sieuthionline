@@ -121,6 +121,7 @@
                                 @php
                                 $stt=0;
                                 $total=0;
+                                $phiship = 0;
                                 @endphp
                                 @foreach($order_details_product as $key => $order_de)
                                 <tr>
@@ -128,6 +129,7 @@
                                     $stt++;
                                     $subtotal=$order_de->product_price*$order_de->product_sales_quantity;
                                     $total+=$subtotal;
+                                    $phiship+= 15000 * $order_de->product_sales_quantity;
                                     @endphp 
                                     <td>{{$stt}}</td>
                                     <td>{{$order_de->product_name}}</td>         
@@ -147,9 +149,9 @@
                                     <td colspan="7">
                                         <span style="float: right;">
                                             Phí vận chuyển :
-                                            <b style="color: blue;">30.000đ</b><br/>
+                                            <b style="color: blue;">{{number_format($phiship ,0,',','.')}}đ</b><br/>
                                             Tổng thanh toán :
-                                            <b style="color: blue;">{{number_format($total+30000 ,0,',','.')}}đ</b>
+                                            <b style="color: blue;">{{number_format($total ,0,',','.')}}đ</b>
                                         </span>
                                     </td>
                                 </tr>

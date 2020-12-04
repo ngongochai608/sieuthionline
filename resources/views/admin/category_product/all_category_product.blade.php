@@ -3,10 +3,10 @@
 <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
-                    <div class="col-sm-5">
+                    <div class="col-sm-12">
                         <div class="page-header float-left">
                             <div class="page-title">
-                                <h1>Loại sản phẩm</h1>
+                                <h1>Danh mục sản phẩm</h1>
                                 <?php
                                 $message = Session::get('message');
                                 if ($message) {
@@ -14,17 +14,6 @@
                                     Session::put('message',null);
                                 }
                                 ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Danh mục sản phẩm</a></li>
-                                    <li class="active">Liệt kê danh mục</li>
-                                </ol>
                             </div>
                         </div>
                     </div>
@@ -57,7 +46,7 @@
                                             <td>{{ $cate_product->category_name }}</td>
                                             <td>
                                                 <a href="{{URL::to('/edit-category-product-admin&'.$cate_product->category_id)}}" class="btn btn-success">Sửa</a> | 
-                                                <a href="{{URL::to('/delete-category-product-admin/'.$cate_product->category_id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa danh mục này ko?')">Xóa</a></td>
+                                                <a href="{{URL::to('/delete-category-product-admin/'.$cate_product->category_id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa danh mục này không?')">Xóa</a></td>
                                         </tr>
                                         @endforeach    
                                     </tbody>

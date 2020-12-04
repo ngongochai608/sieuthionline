@@ -35,11 +35,13 @@
                         <tbody>
                             @php
                             $total = 0;
+                            $phiship = 0;
                             @endphp
                             @foreach(Session::get('cart') as $key => $cart)
                             @php
                             $subtotal = $cart['product_price']*$cart['product_qty'];
                             $total+=$subtotal;
+                            $phiship+= 15000 * $cart['product_qty'];
                             @endphp
                             <tr class="cart_item">                          
                                 <td class="product-thumbnail">
@@ -88,18 +90,15 @@
                             </div>
                             <div class="row">
                                 <p class="col-md-6" style="color: #757575;">Tạm tính :</p>
-                                <p class="col-md-6" style="text-align: right;">0đ</p>   
+                                <p class="col-md-6" style="text-align: right;">{{number_format($total,0,',','.')}}đ</p>   
                             </div>
-                            @php
-                            $total+=30000;
-                            @endphp
                             <div class="row">
                                 <p class="col-md-6" style="color: #757575;">Phí giao hàng :</p>
-                                <p class="col-md-6" style="text-align: right;">30.000đ</p>   
+                                <p class="col-md-6" style="text-align: right;">{{number_format($phiship,0,',','.')}}đ</p>   
                             </div>      
                             <div class="row">
                                 <p class="col-md-6">Tổng cộng :</p>
-                                <b class="col-md-6" style="text-align: right;color: #5a88ca">{{number_format($total,0,',','.')}}đ</b>   
+                                <b class="col-md-6" style="text-align: right;color: #5a88ca">{{number_format($total + $phiship,0,',','.')}}đ</b>   
                             </div>
                             <div class="row">
                                 <form>

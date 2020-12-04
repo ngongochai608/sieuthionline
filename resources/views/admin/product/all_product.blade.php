@@ -3,7 +3,7 @@
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
         <div class="row m-0">
-            <div class="col-sm-5">
+            <div class="col-sm-12">
                 <div class="page-header float-left">
                     <div class="page-title">
                         <h1>Sản phẩm</h1>
@@ -18,17 +18,6 @@
                         ?>
                     </div>
 
-                </div>
-            </div>
-            <div class="col-sm-7">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Sản phẩm</a></li>
-                            <li class="active">Liệt kê sản phẩm</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </div>
@@ -56,7 +45,7 @@
                                     <th>Giá</th>
                                     <th>Người bán</th>
                                     <th>Lượt xem</th>
-                                    <th>Tình trạng</th>
+                                    <th>Trạng thái</th>
                                     <th></th>
                                 </tr>
                             </thead>

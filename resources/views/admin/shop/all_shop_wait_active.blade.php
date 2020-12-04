@@ -17,17 +17,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-7">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="#">Trang chủ</a></li>
-                            <li><a href="#">Gian hàng</a></li>
-                            <li class="active">Tài khoản gian hàng chờ duyệt</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

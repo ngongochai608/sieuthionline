@@ -96,27 +96,27 @@
                             <form method="post" class="form-horizontal">
                                 @csrf
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-12"><input type="text" name="shipping_name" placeholder="Họ tên" class="form-control shipping_name">
+                                    <div class="col-12 col-md-12"><input type="text" name="shipping_name" placeholder="Họ tên" class="form-control shipping_name" value="{{$customer->customer_name}}">
                                         @if($errors->has('shipping_name'))
                                         <p class="alert alert-danger">{{ $errors->first('shipping_name') }}</p>
                                     @endif</div>
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-12"><input type="text" name="shipping_email" placeholder="Email" class="form-control  shipping_email">
+                                    <div class="col-12 col-md-12"><input type="text" name="shipping_email" placeholder="Email" class="form-control  shipping_email" value="{{$customer->customer_email}}">
                                         @if($errors->has('shipping_email'))
                                         <p class="alert alert-danger">{{ $errors->first('shipping_email') }}</p>
                                     @endif</div>
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-12"><input type="text" name="shipping_phone" placeholder="Số điện thoại" class="form-control shipping_phone">@if($errors->has('shipping_phone'))
+                                    <div class="col-12 col-md-12"><input type="text" name="shipping_phone" placeholder="Số điện thoại" class="form-control shipping_phone" value="{{$customer->customer_phone}}">@if($errors->has('shipping_phone'))
                                         <p class="alert alert-danger">{{ $errors->first('shipping_phone') }}</p>
                                     @endif</div>
                                 </div>
 
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-12"><input type="text" name="shipping_address" placeholder="Địa chỉ nhận hàng" class="form-control shipping_address">@if($errors->has('shipping_address'))
+                                    <div class="col-12 col-md-12"><input type="text" name="shipping_address" placeholder="Địa chỉ nhận hàng" class="form-control shipping_address" value="{{$customer->customer_address}}">@if($errors->has('shipping_address'))
                                         <p class="alert alert-danger">{{ $errors->first('shipping_address') }}</p>
                                     @endif</div>
                                 </div>

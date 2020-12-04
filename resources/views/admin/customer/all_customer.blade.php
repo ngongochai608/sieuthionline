@@ -3,7 +3,7 @@
 <div class="breadcrumbs">
             <div class="breadcrumbs-inner">
                 <div class="row m-0">
-                    <div class="col-sm-5">
+                    <div class="col-sm-12">
                         <div class="page-header float-left">
                             <div class="page-title">
                                 <h1>Tài khoản khách hàng thành viên</h1>
@@ -14,17 +14,6 @@
                                     Session::put('message',null);
                                 }
                                 ?>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-7">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="#">Dashboard</a></li>
-                                    <li><a href="#">Customer</a></li>
-                                    <li class="active">Tài khoản khách hàng</li>
-                                </ol>
                             </div>
                         </div>
                     </div>
@@ -61,7 +50,7 @@
                                             <td>******</td>
                                             <td>
                                                 <a href="{{URL::to('/edit-customer-admin&'.$c->customer_id)}}" class="btn btn-success">Sửa</a> | 
-                                                <a href="{{URL::to('/delete-customer-admin/'.$c->customer_id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa tài khoản này ko?')">Xóa</a></td>
+                                                <a href="{{URL::to('/delete-customer-admin/'.$c->customer_id)}}" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa tài khoản này không?')">Xóa</a></td>
                                         </tr>
                                         @endforeach    
                                     </tbody>

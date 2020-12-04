@@ -3,7 +3,7 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
-            <strong>Sửa loại sản phẩm</strong>
+            <strong>Sửa danh mục sản phẩm</strong>
         </div>
         <?php
             $message = Session::get('message');
@@ -31,7 +31,8 @@
                 </div>
                 <div class="row form-group">
                     <div class="col col-md-3"><label for="file-input" class=" form-control-label">Hình ảnh danh mục</label></div>
-                    <div class="col-12 col-md-9"><input type="file" name="category_product_image" class="form-control"> 
+                    <div class="col-12 col-md-9"><input type="file" id="file-input" name="category_product_image" class="form-control"> 
+                    <img src="{{URL::to('public/uploads/category_product/'.$cate_pro->category_image)}}" height="60" width="60">
                     @if($errors->has('category_product_image'))
                         <p class="alert alert-danger">{{ $errors->first('category_product_image') }}</p>                  
                     @endif</div>
@@ -44,7 +45,7 @@
                     @endif</div>
                 </div>  
                 <div class="row form-group">
-                    <input style="margin: 0px auto;" type="submit" name="" value="Cập nhập loại sản phẩm" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc là muốn cập nhập danh mục này ko?')">
+                    <input style="margin: 0px auto;" type="submit" name="" value="Cập nhập loại sản phẩm" class="btn btn-primary btn-sm" onclick="return confirm('Bạn có chắc là muốn cập nhập danh mục sản phẩm này không ?')">
                 </div>
             </form>
             @endforeach
