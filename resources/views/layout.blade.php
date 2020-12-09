@@ -224,6 +224,7 @@
      CKEDITOR.replace('id4');
  </script>
 
+
  <script type="text/javascript">
     function remove_background(shop_id){
         for(var count=1;count<=5;count++){
@@ -362,75 +363,105 @@
             
         </script>
         <script type="text/javascript">
-            $(document).ready(function(){
-                $('.add-to-cart').click(function(){
-                    var id = $(this).data('id');
-                    var cart_product_id = $('.cart_product_id_' + id).val();
-                    var cart_product_name = $('.cart_product_name_' + id).val();
-                    var cart_product_image = $('.cart_product_image_' + id).val();
-                    var cart_product_price = $('.cart_product_price_' + id).val();
-                    var cart_product_qty = $('.cart_product_qty_' + id).val();
-                    var cart_product_shop = $('.cart_product_shop_' + id).val();
-                    var product_quantity = $('.product_quantity_' + id).val();
+           $(document).ready(function(){
 
-                    var cart_product_slug = $('.cart_product_slug_' + id).val();
-                    var cart_product_category = $('.cart_product_category_' + id).val();
-                    var _token = $('input[name="_token"]').val();
-                    if (parseInt(cart_product_qty)>parseInt(product_quantity)) {
-                        swal("Bạn không được đặt số lượng sản phẩm lớn hơn số lượng có sẵn");
-                    }else{
-                        $.ajax({
-                            url: '{{url('/add-cart')}}',
-                            method: 'POST',
-                            data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_shop:cart_product_shop,product_quantity:product_quantity,cart_product_slug:cart_product_slug,cart_product_category:cart_product_category},
-                            success:function(){
-                                swal({
-                                  title: "Đã thêm sản phẩm vào giỏ hàng?",
-                                  text: "Bạn có thể ở lại trang này hoặc đi đến giỏ hàng để thanh toán!",
-                                  showCancelButton: true,
-                                  cancelButtonText: "Xem tiếp",
-                                  confirmButtonClass: "btn-success",
-                                  confirmButtonText: "Đi đến giỏ hàng",
-                                  closeOnConfirm: false,
-                              },
-                              function() {
-                                  window.location.href = "{{URL('/cart')}}";
-                              });
-                            }
-                        });
-                    }      
-                });
-            });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('.send_order').click(function(){
-                    var shipping_name = $('.shipping_name').val();
-                    var shipping_email = $('.shipping_email').val();
-                    var shipping_phone = $('.shipping_phone').val();
-                    var shipping_address = $('.shipping_address').val();
-                    var shipping_method = $('.payment_select').val();
-                    var _token = $('input[name="_token"]').val();
-                    $.ajax({
-                        url: '{{url('/confirm-order')}}',
+            $('.cancel-order').click(function(){
+                var order_code = $(this).data('id');
+                var _token = $('input[name="_token"]').val();
+                swal({
+                    title: "Hủy đơn hàng",
+                  text: "Bạn có chắc chắn là muốn hủy đơn hàng này không?",
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonClass: "btn-danger",
+                  confirmButtonText: "Xác nhận, hủy đơn!",
+                  closeOnConfirm: false
+              },
+              function(){
+                   $.ajax({
+                        url: '{{url('/cancel-order')}}',
                         method: 'POST',
-                        data:{shipping_name:shipping_name,shipping_email:shipping_email,shipping_phone:shipping_phone,shipping_address:shipping_address,shipping_method:shipping_method,_token:_token},
+                        data:{order_code:order_code,_token:_token},
+                        success:function(){
+                            swal("Thành công!", "Đã hủy đơn hàng.", "success");
+                            location.reload();
+                        }
+                    }); 
+                  
+              });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.add-to-cart').click(function(){
+                var id = $(this).data('id');
+                var cart_product_id = $('.cart_product_id_' + id).val();
+                var cart_product_name = $('.cart_product_name_' + id).val();
+                var cart_product_image = $('.cart_product_image_' + id).val();
+                var cart_product_price = $('.cart_product_price_' + id).val();
+                var cart_product_qty = $('.cart_product_qty_' + id).val();
+                var cart_product_shop = $('.cart_product_shop_' + id).val();
+                var product_quantity = $('.product_quantity_' + id).val();
+
+                var cart_product_slug = $('.cart_product_slug_' + id).val();
+                var cart_product_category = $('.cart_product_category_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                if (parseInt(cart_product_qty)>parseInt(product_quantity)) {
+                    swal("Bạn không được đặt số lượng sản phẩm lớn hơn số lượng có sẵn");
+                }else{
+                    $.ajax({
+                        url: '{{url('/add-cart')}}',
+                        method: 'POST',
+                        data:{cart_product_id:cart_product_id,cart_product_name:cart_product_name,cart_product_image:cart_product_image,cart_product_price:cart_product_price,cart_product_qty:cart_product_qty,_token:_token,cart_product_shop:cart_product_shop,product_quantity:product_quantity,cart_product_slug:cart_product_slug,cart_product_category:cart_product_category},
                         success:function(){
                             swal({
-                              title: "Đặt hàng thành công!",
-                              text: "Cảm ơn bạn đã đặt hàng!",
-                              type: "success",
-                              confirmButtonClass: "btn-primary",
-                              confirmButtonText: "OK",
-                              closeOnConfirm: false
+                              title: "Đã thêm sản phẩm vào giỏ hàng?",
+                              text: "Bạn có thể ở lại trang này hoặc đi đến giỏ hàng để thanh toán!",
+                              showCancelButton: true,
+                              cancelButtonText: "Xem tiếp",
+                              confirmButtonClass: "btn-success",
+                              confirmButtonText: "Đi đến giỏ hàng",
+                              closeOnConfirm: false,
                           },
-                          function(){
-                              window.location.href = "{{URL('/trangchu')}}";  
-                          });                
+                          function() {
+                              window.location.href = "{{URL('/cart')}}";
+                          });
                         }
-                    });                             
-                });
+                    });
+                }      
             });
-        </script>
-    </body>
-    </html>
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.send_order').click(function(){
+                var shipping_name = $('.shipping_name').val();
+                var shipping_email = $('.shipping_email').val();
+                var shipping_phone = $('.shipping_phone').val();
+                var shipping_address = $('.shipping_address').val();
+                var shipping_method = $('.payment_select').val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '{{url('/confirm-order')}}',
+                    method: 'POST',
+                    data:{shipping_name:shipping_name,shipping_email:shipping_email,shipping_phone:shipping_phone,shipping_address:shipping_address,shipping_method:shipping_method,_token:_token},
+                    success:function(){
+                        swal({
+                          title: "Đặt hàng thành công!",
+                          text: "Cảm ơn bạn đã đặt hàng!",
+                          type: "success",
+                          confirmButtonClass: "btn-primary",
+                          confirmButtonText: "OK",
+                          closeOnConfirm: false
+                      },
+                      function(){
+                          window.location.href = "{{URL('/trangchu')}}";  
+                      });                
+                    }
+                });                             
+            });
+        });
+    </script>
+</body>
+</html>

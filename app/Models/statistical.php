@@ -9,7 +9,7 @@ class statistical extends Model
 {
     use HasFactory;
     protected $fillable = [
-    	'order_date', 'sales', 'profit','quantity','total_order'
+    	'order_date', 'sales','quantity'
     ];
     protected $primaryKey = 'statistical_id';
  	protected $table = 'tbl_statistical';

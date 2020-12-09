@@ -19,8 +19,10 @@ Route::get('register-customer','App\Http\Controllers\CheckoutController@Register
 Route::post('sigin-customer','App\Http\Controllers\CheckoutController@SiginCustomer');
 Route::get('logout-customer','App\Http\Controllers\CheckoutController@logout_customer');
 Route::get('order-customer','App\Http\Controllers\CheckoutController@order_customer');
+Route::get('order-details-customer&{order_code}','App\Http\Controllers\CheckoutController@order_details_customer');
 Route::get('change-password-customer','App\Http\Controllers\CheckoutController@change_password_customer');
 Route::post('change-password-cus','App\Http\Controllers\CheckoutController@change_password_cus');
+Route::post('cancel-order','App\Http\Controllers\OrderController@cancel_order');
 //Product
 Route::get('allproduct','App\Http\Controllers\ProductController@allproduct');
 Route::get('chi-tiet-san-pham&{product_slug}&{shop_id}&dm={category_id}','App\Http\Controllers\ProductController@chitietsanpham');

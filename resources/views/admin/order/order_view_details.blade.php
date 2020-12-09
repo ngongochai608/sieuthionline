@@ -115,6 +115,7 @@
                                     <th>Số lượng trong kho</th>
                                     <th>Gian hàng</th>
                                     <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -143,6 +144,19 @@
                                     <td>{{$order_de->product->product_quantity }}</td>
                                     <td>{{$order_de->shop_name }}</td>     
                                     <td>{{number_format($subtotal ,0,',','.')}}đ</td>
+                                    <td>
+                                        <?php
+                                            if ($order_de->order_details_status==1) {
+                                        ?>
+                                                <p class="text text-success">Đã xác nhận</p>
+                                        <?php
+                                            }else{
+                                        ?>
+                                                <p class="text text-danger">Chưa xác nhận</p>
+                                        <?php
+                                            }
+                                        ?>
+                                    </td>
                                 </tr>  
                                 @endforeach
                                 <tr>

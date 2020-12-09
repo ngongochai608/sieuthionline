@@ -169,7 +169,16 @@ public function sales_dashboard(){
     foreach ($product_shop as $key => $val) {
         $product_sold_count += $val->product_sold;
     }
-    return view('sales.sales_dashboard')->with(compact('count_shipping','count_product','shop','product_sold_count'));
+    $dauthangnay = Carbon::now("Asia/Ho_Chi_Minh")->startOfMonth()->toDateString();
+    $now = Carbon::now("Asia/Ho_Chi_Minh")->toDateString();
+    $sales_month = statistical::where('shop_id',$shop_id)->whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+    $revenue_month = 0;
+    $sales_product_quantity_month = 0;
+    foreach ($sales_month as $key => $sales_val) {
+        $revenue_month+=$sales_val->sales;
+        $sales_product_quantity_month+=$sales_val->quantity;
+    }
+    return view('sales.sales_dashboard')->with(compact('count_shipping','count_product','shop','product_sold_count','revenue_month','sales_product_quantity_month'));
 }
 
 public function unactive_shop($shop_id){

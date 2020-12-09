@@ -31,6 +31,10 @@ class OrderController extends Controller
         return Redirect::to('manager-order')->with('message','Xóa đơn hàng thành công');
     }
 
+    public function cancel_order(Request $request){
+        $order_code = $request['order_code'];
+        order::where('order_code',$order_code)->update(['order_status'=>4]);
+    }
     public function print_order($checkout_code){
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($this->print_order_convert($checkout_code));

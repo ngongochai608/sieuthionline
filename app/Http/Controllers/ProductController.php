@@ -101,16 +101,19 @@ public function save_product_admin(Request $request){
     $this->AuthLogin();
     $rules=[
         'product_name' => 'required|min:15|max:40',
+        'product_slug' => 'required',
         'product_quantity' => 'required|numeric',
         'product_desc' => 'required',
         'product_price' => 'required|numeric',
-        'product_image' => 'required',
+        'product_image' => 'required|dimensions:min_width=300,min_height=500',
     ];
 
     $message=[
         'product_name.required' => 'Bạn chưa nhập tên sản phẩm',
         'product_name.min' => 'Tên sản phẩm không được ít hơn 15 ký tự',
-        'product_name.max' => 'Tên sản phẩm không được nhiều hơn 40 ký tự',
+        'product_slug.max' => 'Tên sản phẩm không được nhiều hơn 40 ký tự',
+
+        'product_name.required' => 'Bạn chưa nhập slug cho sản phẩm',
 
         'product_quantity.required' => 'Bạn chưa nhập số lượng sản phẩm',
         'product_quantity.numeric' => 'Số lượng sản phẩm phải được nhập bằng số',
@@ -121,6 +124,7 @@ public function save_product_admin(Request $request){
         'product_price.numeric' => 'Giá sản phẩm phải được nhập bằng số',
 
         'product_image.required' => 'Bạn chưa chọn hình ảnh sản phẩm',
+        'product_image.dimensions' => 'Không được chọn ảnh có chiều ngang nhỏ hơn 300px và chiều cao nhỏ hơn 500px',
     ];
 
     $validator = Validator::make($request->all(),$rules,$message);

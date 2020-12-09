@@ -54,12 +54,45 @@
               <div class="inner">
                 <h3>{{$product_sold_count}}</h3>
 
-                <p>Sản phẩm đã bán</p>
+                <p>Tổng sản phẩm đã bán</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-secondary">
+              <div class="inner">
+                <h3>{{$sales_product_quantity_month}}</h3>
+
+                <p>Sản phẩm đã bán tháng này</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="{{URL::to('/order-shop')}}" class="small-box-footer">Xem <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{number_format($revenue_month ,0,',','.')}}đ</h3>
+
+                <p>Tổng doanh thu tháng này</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="{{URL::to('/all-product-shop')}}" class="small-box-footer">Xem <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->

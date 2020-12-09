@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\customer;
 use App\Models\order;
+use App\Models\order_details;
 use App\Models\shop;
 use Auth;
 session_start();
@@ -31,11 +32,23 @@ class CheckoutController extends Controller
   }else{
     $count_cart=0;
   }   
-  $order_customer = order::where('customer_id',Session::get('customer_id'))->join('tbl_order_details','tbl_order_details.order_code','=','tbl_order.order_code')->join('tbl_shop','tbl_shop.shop_id','=','tbl_order_details.shop_id')->get();
+  $order_customer = order::where('customer_id',Session::get('customer_id'))->get();
   return view('pages.customer.order_customer')->with(compact('order_customer','count_cart'));
 }
 public function LoginCustomer(){
  return view('pages.checkout.login_customer');
+}
+
+public function order_details_customer($order_code){
+   $cart = Session::get('cart');
+   if ($cart==true) {
+    $count_cart = count($cart);
+  }else{
+    $count_cart=0;
+  }   
+  $order_details_customer = order_details::where('order_code',$order_code)->join('tbl_shop','tbl_order_details.shop_id','=','tbl_shop.shop_id')->get();
+  $order_customer = order::where('order_code',$order_code)->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')->first();
+  return view('pages.customer.order_details_customer')->with(compact('order_details_customer','count_cart','order_customer'));
 }
 
 public function Login_Customer(Request $request){
