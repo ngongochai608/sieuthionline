@@ -10,7 +10,18 @@
             <thead>
               <tr>
                 <td colspan="6" class="lead">
-                  Thông tin kiện hàng
+                  Thông tin kiện hàng <span class="text text-primary">{{$order_code_d}}</span>
+                </td>
+                <td>
+                    @if($order_customer->order_status==1)
+                    <p class="text text-primary">Đơn hàng mới</p>
+                    @elseif($order_customer->order_status==2)
+                    <p class="text text-warning">Đang vận chuyển</p>
+                    @elseif($order_customer->order_status==3)
+                    <p class="text text-success">Đã giao hàng</p>
+                    @elseif($order_customer->order_status==4)
+                    <p class="text text-danger">Đã hủy đơn hàng</p>
+                    @endif
                 </td>
               </tr>
               <tr>
@@ -138,10 +149,10 @@
           <div class="col-md-1"></div>
           <div class="col-md-6" style="background: #ffffff;">
             <p class="lead">Tổng cộng</p>
-            <p>Tạm tính : 500.000đ</p>
-            <p>Phí vận chuyển : 30.000đ</p>
+            <p>Tạm tính : {{number_format($order_customer->sub_total ,0,',','.')}}đ</p>
+            <p>Phí vận chuyển : {{number_format($order_customer->fee_ship ,0,',','.')}}đ</p>
             <hr>
-            <p>Tổng : 530.000đ</p>
+            <p>Tổng : {{number_format($order_customer->total ,0,',','.')}}đ</p>
           </div>
       </div>
     </div>

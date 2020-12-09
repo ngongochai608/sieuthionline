@@ -105,6 +105,10 @@ class CartController extends Controller
         $order->shipping_id = $shipping_id;
         $order->order_status = 1;
         $order->order_code = $checkout_code;
+
+        $order->fee_ship = $data['fee_ship'];
+        $order->sub_total = $data['sub_total'];
+        $order->total = $data['total'];
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $order->order_date = now();
         $order->create_at = now();

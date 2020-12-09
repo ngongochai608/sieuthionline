@@ -48,7 +48,8 @@ public function order_details_customer($order_code){
   }   
   $order_details_customer = order_details::where('order_code',$order_code)->join('tbl_shop','tbl_order_details.shop_id','=','tbl_shop.shop_id')->get();
   $order_customer = order::where('order_code',$order_code)->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')->first();
-  return view('pages.customer.order_details_customer')->with(compact('order_details_customer','count_cart','order_customer'));
+  $order_code_d = $order_code;
+  return view('pages.customer.order_details_customer')->with(compact('order_details_customer','count_cart','order_customer','order_code_d'));
 }
 
 public function Login_Customer(Request $request){

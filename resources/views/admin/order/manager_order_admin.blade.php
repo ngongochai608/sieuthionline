@@ -53,11 +53,13 @@
                                             <td>
                                             <?php
                                             if($ord->order_status==1){
-                                                echo "<p style='color:red;'>Đơn hàng mới</p>";
+                                                echo "<p class='text text-primary'>Đơn hàng mới</p>";
                                             }else if($ord->order_status==2){
-                                                echo "<p style='color:blue;'>Đang giao hàng</p>";
+                                                echo "<p class='text text-warning'>Đang giao hàng</p>";
                                             }else if($ord->order_status==3){
-                                                echo "<p style='color:green;'>Đã giao hàng</p>";
+                                                echo "<p class='text text-success'>Đã giao hàng</p>";
+                                            }else if($ord->order_status==4){
+                                                echo "<p class='text text-danger'>Đơn đã hủy</p>";
                                             }
                                             ?>    
                                             </td>

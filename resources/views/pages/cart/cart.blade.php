@@ -111,9 +111,9 @@
                                 </form>
                             </div>
                             @if (Session::get('customer_id'))
-                            <a class="btn btn-success btn-sm btn-block" href="{{URL::to('/thanhtoan')}}">Thanh toán</a>
+                            <a class="btn btn-success btn-sm btn-block" href="{{URL::to('/thanhtoan')}}">Xác nhận đơn hàng</a>
                             @else
-                            <a class="btn btn-success btn-sm btn-block" href="{{URL::to('/login-customer')}}">Thanh toán</a>
+                            <a class="btn btn-success btn-sm btn-block" href="{{URL::to('/login-customer')}}">Xác nhận đơn hàng</a>
                             @endif
                         </div>
                     </div>                        

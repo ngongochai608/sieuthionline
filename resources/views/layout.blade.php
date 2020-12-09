@@ -436,6 +436,10 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('.send_order').click(function(){
+                var fee_ship = $('.fee_ship').val();
+                var sub_total = $('.sub_total').val();
+                var total = $('.total').val();
+                
                 var shipping_name = $('.shipping_name').val();
                 var shipping_email = $('.shipping_email').val();
                 var shipping_phone = $('.shipping_phone').val();
@@ -445,7 +449,7 @@
                 $.ajax({
                     url: '{{url('/confirm-order')}}',
                     method: 'POST',
-                    data:{shipping_name:shipping_name,shipping_email:shipping_email,shipping_phone:shipping_phone,shipping_address:shipping_address,shipping_method:shipping_method,_token:_token},
+                    data:{shipping_name:shipping_name,shipping_email:shipping_email,shipping_phone:shipping_phone,shipping_address:shipping_address,shipping_method:shipping_method,_token:_token,fee_ship:fee_ship,sub_total:sub_total,total:total},
                     success:function(){
                         swal({
                           title: "Đặt hàng thành công!",

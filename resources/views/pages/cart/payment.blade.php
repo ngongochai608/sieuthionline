@@ -35,11 +35,13 @@
                         <tbody>
                             @php
                             $total = 0;
+                            $phiship = 0;
                             @endphp
                             @foreach(Session::get('cart') as $key => $cart)
                             @php
                             $subtotal = $cart['product_price']*$cart['product_qty'];
                             $total+=$subtotal;
+                            $phiship+= 15000 * $cart['product_qty'];
                             @endphp
                             <tr class="cart_item">                          
                                 <td class="product-thumbnail">
@@ -84,7 +86,28 @@
                     <div class="woocommerce">
                         <div class="cart-collaterals">
                             <div class="sumary_header">
-                                Nhập thông tin đặt hàng
+                                Đơn hàng
+                            </div>
+                            <div class="row">
+                                <p class="col-md-6" style="color: #757575;">Tạm tính :</p>
+                                <p class="col-md-6" style="text-align: right;">{{number_format($total,0,',','.')}}đ</p>   
+                            </div>
+                            <div class="row">
+                                <p class="col-md-6" style="color: #757575;">Phí giao hàng :</p>
+                                <p class="col-md-6" style="text-align: right;">{{number_format($phiship,0,',','.')}}đ</p>   
+                            </div>      
+                            <div class="row">
+                                <p class="col-md-6">Tổng cộng :</p>
+                                <?php
+                                    $total_order = $total + $phiship;
+                                ?>
+                                <b class="col-md-6" style="text-align: right;color: #5a88ca">{{number_format($total_order,0,',','.')}}đ</b>   
+                            </div>
+                        </div>
+
+                        <div class="cart-collaterals">
+                            <div class="sumary_header">
+                                Thông tin nhận hàng
                             </div>
                             <?php 
                             $message = Session::get('message');
@@ -95,6 +118,9 @@
                             ?>
                             <form method="post" class="form-horizontal">
                                 @csrf
+                                <input type="hidden" name="fee_ship" class="fee_ship" value="{{$phiship}}">
+                                <input type="hidden" name="total" class="total" value="{{$total_order}}">
+                                <input type="hidden" name="sub_total" class="sub_total" value="{{$total}}">
                                 <div class="row form-group">
                                     <div class="col-12 col-md-12"><input type="text" name="shipping_name" placeholder="Họ tên" class="form-control shipping_name" value="{{$customer->customer_name}}">
                                         @if($errors->has('shipping_name'))
@@ -122,7 +148,7 @@
                                 </div>
                                 <input type="hidden" name="payment_select" class="payment_select" value="0">
                                 <div class="row form-group">
-                                    <div class="col-12 col-md-12"><input type="button" name="send_order" class="btn btn-warning btn-block send_order" value="Xác nhận đơn hàng"></div>
+                                    <div class="col-12 col-md-12"><input type="button" name="send_order" class="btn btn-warning btn-block send_order" value="Đặt hàng"></div>
                                 </div>
                             </form>
                         </div>           
