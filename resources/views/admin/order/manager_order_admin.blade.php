@@ -31,7 +31,7 @@
                                 <strong class="card-title">Liệt kê đơn hàng</strong>
                             </div>
                             <div class="card-body">
-                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                <table id="myTable" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
                                             <th>STT</th>

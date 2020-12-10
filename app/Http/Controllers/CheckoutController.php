@@ -16,40 +16,54 @@ session_start();
 
 class CheckoutController extends Controller
 {
-  public function AuthLogin(){
-    $admin_id = Auth::id();
-    if($admin_id) {
-     return Redirect::to('dashboard');
+  public function CheckLoginCustomer(){
+    $customer_id = Session::get('customer_id');
+    if($customer_id) {
+     return Redirect::to('customer_id');
    }else{
-     return Redirect::to('admin')->send();
+     return Redirect::to('/')->send();
    }
  }
 
- public function order_customer(){
-   $cart = Session::get('cart');
-   if ($cart==true) {
+ public function AuthLogin(){
+  $admin_id = Auth::id();
+  if($admin_id) {
+   return Redirect::to('dashboard');
+ }else{
+   return Redirect::to('admin')->send();
+ }
+}
+
+public function order_customer(){
+  $this->CheckLoginCustomer();
+  $cart = Session::get('cart');
+  if ($cart==true) {
     $count_cart = count($cart);
   }else{
     $count_cart=0;
-  }   
-  $order_customer = order::where('customer_id',Session::get('customer_id'))->get();
-  return view('pages.customer.order_customer')->with(compact('order_customer','count_cart'));
+  }
+  $order_count = order::where('customer_id',Session::get('customer_id'))->count();   
+  $order_customer = order::where('customer_id',Session::get('customer_id'))->paginate(5);
+  return view('pages.customer.order_customer')->with(compact('order_customer','count_cart','order_count'));
 }
 public function LoginCustomer(){
  return view('pages.checkout.login_customer');
 }
 
 public function order_details_customer($order_code){
-   $cart = Session::get('cart');
-   if ($cart==true) {
-    $count_cart = count($cart);
-  }else{
-    $count_cart=0;
-  }   
-  $order_details_customer = order_details::where('order_code',$order_code)->join('tbl_shop','tbl_order_details.shop_id','=','tbl_shop.shop_id')->get();
-  $order_customer = order::where('order_code',$order_code)->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')->first();
-  $order_code_d = $order_code;
-  return view('pages.customer.order_details_customer')->with(compact('order_details_customer','count_cart','order_customer','order_code_d'));
+ $cart = Session::get('cart');
+ if ($cart==true) {
+  $count_cart = count($cart);
+}else{
+  $count_cart=0;
+}   
+$order_details_customer = order_details::where('order_code',$order_code)->join('tbl_shop','tbl_order_details.shop_id','=','tbl_shop.shop_id')->get();
+$order_customer = order::where('order_code',$order_code)->join('tbl_shipping','tbl_order.shipping_id','=','tbl_shipping.shipping_id')->first();
+if ($order_customer==NULL) {
+  return Redirect('/')->with(compact('count_cart'));
+}
+$order_code_d = $order_code;
+return view('pages.customer.order_details_customer')->with(compact('order_details_customer','count_cart','order_customer','order_code_d'));
 }
 
 public function Login_Customer(Request $request){
@@ -82,6 +96,7 @@ public function Login_Customer(Request $request){
 }
 
 public function change_password_customer(){
+  $this->CheckLoginCustomer();
   $cart = Session::get('cart');
   if ($cart==true) {
     $count_cart = count($cart);

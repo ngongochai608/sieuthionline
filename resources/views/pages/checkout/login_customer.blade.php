@@ -39,6 +39,9 @@
                             <div class="row form-group">
                                 <div class="col-12 col-md-9">Bạn chưa có tài khoản?<a href="{{URL::to('/register-customer')}}"><strong style="color: #ee4d2d;"> Đăng ký</strong></a></div>
                             </div>
+                            <div class="row form-group">
+                                <div class="col-12 col-md-9"><a href="{{URL::to('/quen-mat-khau')}}"> Quên mật khẩu</a></div>
+                            </div>
                             <input class="btn btn-lg btn-success btn-block" type="submit" value="Đăng nhập">
                         </fieldset>
                     </form>

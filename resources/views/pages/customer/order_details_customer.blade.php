@@ -9,6 +9,11 @@
           <table id="bootstrap-data-table" class="table">
             <thead>
               <tr>
+                <td colspan="6">
+                  Xin chào <span class="text text-justify text-warning"><?php echo Session::get('customer_name'); ?></span>
+                </td>
+              </tr>
+              <tr>
                 <td colspan="6" class="lead">
                   Thông tin kiện hàng <span class="text text-primary">{{$order_code_d}}</span>
                 </td>

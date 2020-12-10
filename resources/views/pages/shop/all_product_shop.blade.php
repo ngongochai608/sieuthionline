@@ -39,8 +39,8 @@
   </div>
   <div class="profile_shop"></div>
   <div class="tab_profile_shop">
-    <button class="tablinks" onclick="openCity(event, 'product')">Sản phẩm</button>
-    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'ViewComment')">Xem đánh giá</button>
+    <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'product')">Sản phẩm</button>
+    <button class="tablinks" onclick="openCity(event, 'ViewComment')">Xem đánh giá</button>
   </div>
   <div id="product" class="tabcontent_profile_shop">
     <div class="row">
@@ -62,31 +62,24 @@
       </div>
       @endforeach
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="product-pagination text-center">
-          <nav>
-            <ul class="pagination">
-              <li>
-                <a href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li>
-                <a href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
-            </ul>
-          </nav>                        
-        </div>
-      </div>
+    <div style="float: right;">
+    @if ($product_shop->lastPage() > 1)
+    <ul class="pagination">
+      <li class="{{ ($product_shop->currentPage() == 1) ? ' disabled' : '' }}">
+        <a href="{{ $product_shop->url(1) }}">Quay lại</a>
+      </li>
+      @for ($i = 1; $i <= $product_shop->lastPage(); $i++)
+      <li class="{{ ($product_shop->currentPage() == $i) ? ' active' : '' }}">
+        <a href="{{ $product_shop->url($i) }}">{{ $i }}</a>
+      </li>
+      @endfor
+      <li class="{{ ($product_shop->currentPage() == $product_shop->lastPage()) ? ' disabled' : '' }}">
+        <a href="{{ $product_shop->url($product_shop->currentPage()+1) }}" >Tiếp theo</a>
+      </li>
+    </ul>
+    @endif
     </div>
+
   </div>   
 
 

@@ -34,7 +34,7 @@
                         <strong class="card-title">Liệt kê sản phẩm</strong>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="myTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Tên sản phẩm</th>
@@ -99,8 +99,10 @@
 
 
         </div>
+
     </div><!-- .animated -->
 </div><!-- .content -->
+
 
 
 <div class="clearfix"></div>

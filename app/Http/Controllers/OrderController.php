@@ -12,10 +12,19 @@ use App\Models\shop;
 use App\Models\product;
 use PDF;
 use Session;
+use Auth;
 session_start();
 
 class OrderController extends Controller
 {
+    public function AuthLogin(){
+      $admin_id = Auth::id();
+      if($admin_id) {
+         return Redirect::to('dashboard');
+      }else{
+         return Redirect::to('admin')->send();
+      }
+    }
     public function order_access_sales($order_details_id){
     order_details::where('order_details_id',$order_details_id)->update(['order_details_status'=>1]);
     Session::put('message','Đã khóa tài khoản gian hàng');
@@ -211,6 +220,7 @@ class OrderController extends Controller
 
 
     public function manager_order(){
+        $this->AuthLogin();
     	$order = order::orderby('create_at','DESC')->get();
     	return view('admin.order.manager_order_admin')->with(compact('order'));
     }

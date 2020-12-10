@@ -32,6 +32,14 @@ class ShopController extends Controller
        return Redirect::to('admin')->send();
    }
 }
+public function CheckLoginShop(){
+    $shop_id = Session::get('shop_id');
+    if($shop_id) {
+       return Redirect::to('sales-dashboard');
+   }else{
+       return Redirect::to('sales')->send();
+   }
+}
 
 public function insert_rating_shop(Request $request){
     $data = $request->all();
@@ -47,7 +55,13 @@ public function insert_rating_shop(Request $request){
     echo "done";
 }
 
-
+public function char_details_shop($shop_id){
+    $shop_details = shop::where('shop_id',$shop_id)->first();
+    $count_rating_shop = rating::where('shop_id',$shop_id)->count();
+    $count_product_shop = product::where('shop_id',$shop_id)->count();
+    $product_shop = product::where('shop_id',$shop_id)->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->get();
+    return view('admin.shop.shop_details_admin')->with(compact('shop_details','count_rating_shop','count_product_shop','product_shop'));
+}
 
 public function load_comment(Request $request){
     $shop_id = $request->shop_id;
@@ -62,33 +76,33 @@ public function load_comment(Request $request){
         <div class="col-md-11">
         <span class="text text-primary">'.$rating_s->customer_name.'<p style="color:black;">'.$rating_s->rating_date.'</p></span>
         <ul class="list-inline" title="Đánh giá sao">
-                  ';
-                  for($count=1;$count<=5;$count++){
-                  if($count<=$rating_s->rating){
-                  $color="#ffcc00";
-                  }else{
-                  $color="#ccc";
-                  }
-                  $output.= '
-                  <li title="Đánh giá sao"
-                  id="" 
-                  data-index=""
-                  data-product_id=""
-                  data-rating=""
-                  class="rating"
-                  style="cursor: pointer;color:'.$color.';font-size: 20px;font-size: 15px;">
-                  &#9733;
-                  </li>';
-                  }
-
-                  $output.= '
-              </ul>
-        </div>
-        </div>
-        <p></p>
         ';
-    }
-    echo $output;
+        for($count=1;$count<=5;$count++){
+          if($count<=$rating_s->rating){
+              $color="#ffcc00";
+          }else{
+              $color="#ccc";
+          }
+          $output.= '
+          <li title="Đánh giá sao"
+          id="" 
+          data-index=""
+          data-product_id=""
+          data-rating=""
+          class="rating"
+          style="cursor: pointer;color:'.$color.';font-size: 20px;font-size: 15px;">
+          &#9733;
+          </li>';
+      }
+
+      $output.= '
+      </ul>
+      </div>
+      </div>
+      <p></p>
+      ';
+  }
+  echo $output;
 }
 
 public function statistical_30_days(Request $request){
@@ -159,6 +173,7 @@ public function index_sales(){
 }
 
 public function sales_dashboard(){
+    $this->CheckLoginShop();
     $shop_id = Session::get('shop_id');
     $shop = shop::where('shop_id',$shop_id)->first();
     $count_product = product::where('shop_id',$shop_id)->count();
@@ -196,6 +211,7 @@ public function active_shop($shop_id){
 }
 
 public function change_password_shop(){
+    $this->CheckLoginShop();
     $shop_id = Session::get('shop_id');
     $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
     $cart = Session::get('cart');
@@ -239,6 +255,7 @@ public function change_password_sh(Request $request){
 }
 
 public function order_shop(){
+    $this->CheckLoginShop();
     $shop_id = Session::get('shop_id');
     $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
     $order_shop = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->join('tbl_customer','tbl_customer.customer_id','=','tbl_order.customer_id')->join('tbl_shipping','tbl_shipping.shipping_id','tbl_order.shipping_id')->get();
@@ -254,6 +271,7 @@ public function register_shop(){
     return view('pages.shop.register_shop')->with(compact('count_cart'));
 }
 public function all_product_shop(){
+    $this->all_product_shop();
     $shop_id = Session::get('shop_id');
     $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
     $shop_product = product::orderby('product_id','desc')->where('shop_id',$shop_id)->get();
@@ -273,7 +291,7 @@ public function chitietshop($shop_id){
     }else{
         $count_cart=0;
     }
-    $product_shop = product::where('shop_id',$shop_id)->get();
+    $product_shop = product::where('shop_id',$shop_id)->paginate(20);
     $shop = shop::where('shop_id',$shop_id)->first();
     $shop->shop_view = $shop->shop_view+1;
     $shop->update();
@@ -504,6 +522,7 @@ public function delete_shop_admin($shop_id){
     return Redirect::to('all-shop-admin')->with('message','Xóa gian hàng thành công!');
 }
 public function add_product_shop(){
+    $this->CheckLoginShop();
     $shop_id = Session::get('shop_id');
     $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
     $category_product = category_product::orderby('category_id','desc')->get();

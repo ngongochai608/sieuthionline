@@ -160,7 +160,7 @@
                                 </tr>  
                                 @endforeach
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <span style="float: right;">
                                             Phí vận chuyển :
                                             <b style="color: blue;">{{number_format($phiship ,0,',','.')}}đ</b><br/>
@@ -170,7 +170,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         @foreach($order as $key => $or)
                                         @if($or->order_status==1)
                                         <form>

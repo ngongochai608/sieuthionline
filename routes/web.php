@@ -3,7 +3,7 @@
 //Index
 Route::get('/','App\Http\Controllers\HomeController@index');
 Route::get('trangchu','App\Http\Controllers\HomeController@index');
-Route::post('/tim-kiem','App\Http\Controllers\HomeController@search');
+Route::get('/tim-kiem','App\Http\Controllers\HomeController@search');
 //Shop
 Route::get('/register-shop','App\Http\Controllers\ShopController@register_shop');
 Route::post('/save-shop','App\Http\Controllers\ShopController@save_shop');
@@ -36,6 +36,11 @@ Route::post('update-cart','App\Http\Controllers\CartController@update_cart');
 Route::post('confirm-order','App\Http\Controllers\CartController@confirm_order');
 //Gallery
 Route::get('add-gallery-product-shop&{product_id}','App\Http\Controllers\GalleryController@add_gallery_product_shop');
+//Mail
+Route::get('quen-mat-khau','App\Http\Controllers\MailController@quen_mat_khau');
+Route::get('update-new-password-customer','App\Http\Controllers\MailController@update_new_password_customer');
+Route::post('recover-password-customer','App\Http\Controllers\MailController@recover_password_customer');
+Route::post('reset-new-password-customer','App\Http\Controllers\MailController@reset_new_password_customer');
 //----------------------Admin-----------------------------------------
 //Dashboard
 Route::get('/admin','App\Http\Controllers\AdminController@index');
@@ -59,6 +64,7 @@ Route::post('save-shop-admin','App\Http\Controllers\ShopController@save_shop_adm
 Route::post('update-shop-admin/{shop_id}','App\Http\Controllers\ShopController@update_shop_admin');
 Route::get('/unactive-shop/{shop_id}','App\Http\Controllers\ShopController@unactive_shop');
 Route::get('/active-shop/{shop_id}','App\Http\Controllers\ShopController@active_shop');
+Route::get('/char-details-shop&{shop_id}','App\Http\Controllers\ShopController@char_details_shop');
 //Customer   
 Route::get('add-customer-admin','App\Http\Controllers\CustomerController@add_customer')->middleware('admin.roles');
 Route::get('all-customer-admin','App\Http\Controllers\CustomerController@all_customer')->middleware('admin.roles');

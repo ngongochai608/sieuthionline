@@ -60,7 +60,7 @@
                                     </span><b class="caret"></b></a>
                                     <ul class="dropdown-menu">
                                         <li><a style="float: left;" href="{{URL::to('/change-password-customer')}}">Đổi mật khẩu</a></li>
-                                        <li><a style="float: left;" href="{{URL::to('/order-customer')}}">Kiểm tra đơn hàng</a></li>
+                                        <li><a style="float: left;" href="{{URL::to('/order-customer')}}">Đơn hàng của tôi</a></li>
                                         <li><a style="float: left;" href="{{URL::to('/logout-customer')}}">Đăng xuất</a></li>
                                     </ul>
                                 </li>
@@ -89,7 +89,7 @@
                     <div class="logo" style="float: left;">
                         <a href="./trangchu"><img src="{{('public/frontend/images/logo1.png')}}" width="150"></a>
                     </div>
-                    <form class="form-inline active-cyan-4" action="{{URL::to('/tim-kiem')}}" method="POST" style="float: left;padding-left: 150px; padding-top: 12px;">
+                    <form class="form-inline active-cyan-4" action="{{URL::to('/tim-kiem')}}" method="GET" style="float: left;padding-left: 150px; padding-top: 12px;">
                         {{ csrf_field() }}
                         <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nhập tên sản phẩm cần tìm..." style="width: 450px;height: 40px;" name="keywords_submit">
                         <input type="submit" name="search_items" class="btn btn-primary btn-sm btn-search" value="Tìm kiếm">

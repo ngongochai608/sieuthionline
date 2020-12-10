@@ -31,7 +31,7 @@
                         <strong class="card-title">Tài khoản gian hàng bị khóa</strong>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="myTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Tên gian hàng</th>

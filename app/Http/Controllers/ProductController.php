@@ -28,6 +28,14 @@ class ProductController extends Controller
          return Redirect::to('admin')->send();
      }
  }
+ public function CheckLoginShop(){
+        $shop_id = Session::get('shop_id');
+        if($shop_id) {
+         return Redirect::to('sales-dashboard');
+     }else{
+         return Redirect::to('sales')->send();
+     }
+ }
 
  public function send_comment_product(Request $request){
     $data = $request->all();
@@ -225,6 +233,7 @@ public function update_product_admin(Request $request,$product_id){
     return Redirect::to('all-product-admin');
 }
 public function edit_product_shop($product_id){
+    $this->CheckLoginShop();
     $category_product = category_product::orderBy('category_id','desc')->get();
     $edit_product = product::where('product_id',$product_id)->first();
     return view('sales.product_sales.edit_product_shop')->with('edit_product',$edit_product)->with('category_product',$category_product);

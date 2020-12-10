@@ -31,7 +31,7 @@
                         <strong class="card-title">Tài khoản gian hàng</strong>
                     </div>
                     <div class="card-body">
-                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <table id="myTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>Tên gian hàng</th>
@@ -53,7 +53,7 @@
                                         <p class="btn btn-success btn-sm active">Đang hoạt động</p>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/edit-shop-admin&'.$s->shop_id)}}" class="btn btn-primary btn-sm btn-block">Xem thống kê</a>
+                                        <a href="{{URL::to('/char-details-shop&'.$s->shop_id)}}" class="btn btn-primary btn-sm btn-block">Xem chi tiết</a>
                                         <a href="{{URL::to('/edit-shop-admin&'.$s->shop_id)}}" class="btn btn-success btn-sm btn-block">Sửa</a>
                                         <a href="{{URL::to('/delete-shop-admin/'.$s->shop_id)}}" class="btn btn-danger btn-sm btn-block" onclick="return confirm('Bạn có chắc là muốn xóa tài khoản gian hàng này không?')">Xóa</a>
                                         <a class="btn btn-warning btn-sm btn-block" href="{{URL::to('/unactive-shop/'.$s->shop_id)}}" onclick="return confirm('Bạn có chắc là muốn khóa tài khoản gian hàng này không?')">Khóa</a>

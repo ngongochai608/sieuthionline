@@ -50,7 +50,7 @@ class CategoryProductController extends Controller
         $shop_id = Session::get('shop_id');
         $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
         $name_category = category_product::where('category_slug_product',$category_slug)->first();
-        $category_by_slug = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug_product',$category_slug)->paginate(6);
+        $category_by_slug = DB::table('tbl_product')->join('tbl_category_product','tbl_product.category_id','=','tbl_category_product.category_id')->where('tbl_category_product.category_slug_product',$category_slug)->paginate(20);
         return view('pages.category_product.show_category_product')->with(compact('category_by_slug','name_category','order_new','count_cart'));
     }
     public function save_category_product(Request $request){

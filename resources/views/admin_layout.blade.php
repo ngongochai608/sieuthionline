@@ -22,9 +22,11 @@
     <link rel="stylesheet" href="{{asset('public/backend/css/cs-skin-elastic.css')}}">
     <link rel="stylesheet" href="{{asset('public/backend/css/style.css')}}">
     <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
+
+    <link href="{{asset('public/backend/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/jqvmap@1.5.1/dist/jqvmap.min.css" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/weathericons@2.1.0/css/weather-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.css" rel="stylesheet" />
 
@@ -53,10 +55,10 @@
             padding-bottom: 10px;
         }
         #flotLine5  {
-           height: 105px;
-       }
+         height: 105px;
+     }
 
-       #flotBarChart {
+     #flotBarChart {
         height: 150px;
     }
     #cellPaiChart{
@@ -217,114 +219,123 @@
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@3.9.0/dist/fullcalendar.min.js"></script>
         <script src="assets/js/init/fullcalendar-init.js"></script>
         <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
+
+        <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
+        
         <script>
-         CKEDITOR.replace('ckeditor');
-         CKEDITOR.replace('ckeditor1');
-         CKEDITOR.replace('ckeditor2');
-         CKEDITOR.replace('ckeditor3');
-         CKEDITOR.replace('id4');
-     </script>
+           CKEDITOR.replace('ckeditor');
+           CKEDITOR.replace('ckeditor1');
+           CKEDITOR.replace('ckeditor2');
+           CKEDITOR.replace('ckeditor3');
+           CKEDITOR.replace('id4');
+       </script>
 
-     <script type="text/javascript">
-         $(document).ready(function(){
-            load_gallery();
-            function load_gallery(){
-                var pro_id = $('.pro_id').val();
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url:"{{url('/select-gallery')}}",
-                    method:"POST",
-                    data:{pro_id:pro_id,_token:_token},
-                    success:function(data){
-                        $('#gallery_load').html(data);
-                    }
-                });
-            }
-
-            $('#file').change(function(){
-                var error = '';
-                var files = $('#file')[0].files;
-
-                if(files.length>5){
-                    error+='<p>Bạn không được chọn quá 5 ảnh</p>';
-                }else if(files.length==''){
-                    error+='<p>Chưa có ảnh nào được chọn</p>';
-                }else if(files.size>2000000){
-                    error+='<p>Bạn không được chọn ảnh lớn hơn 2MB</p>';
-                }
-
-                if(error==''){
-
-                }else{
-                    $('#file').val('');
-                    $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
-                    return false;
-                }
-            });
-
-            $(document).on('blur','.edit_gallery_name',function(){
-                var gal_id = $(this).data('gal_id');
-                var gal_text = $(this).text();
-                var _token = $('input[name="_token"]').val();
-                $.ajax({
-                    url:"{{url('/update-gallery-name')}}",
-                    method:"POST",
-                    data:{gal_id:gal_id,gal_text:gal_text,_token:_token},
-                    success:function(data){
-                        load_gallery();
-                        $('#error_gallery').html('<span class="text-danger">Cập nhập tên hình ảnh thành công</span>');
-                    }
-                });
-            });
-
-            $(document).on('click','.delete-gallery',function(){
-                var x = confirm('Bạn có chắc là muốn xóa hình ảnh này không?');
-                var gal_id = $(this).data('gal_id');
-                var _token = $('input[name="_token"]').val();
-                if(x){
-                    $.ajax({
-                        url:"{{url('/delete-gallery')}}",
-                        method:"POST",
-                        data:{gal_id:gal_id,_token:_token},
-                        success:function(data){
-                            load_gallery();
-                            $('#error_gallery').html('<span class="text-danger">Xóa hình ảnh thành công</span>');
-                        }
-                    });
-                }
-            });
-
-            $(document).on('change','.file_image',function(){
-                var gal_id = $(this).data('gal_id');
-                var image = document.getElementById('file-'+gal_id).files[0];
-
-                var form_data = new FormData();
-                form_data.append("file",document.getElementById('file-'+gal_id).files[0]);
-                form_data.append('gal_id',gal_id);
-
-                $.ajax({
-                    url:"{{url('/update-gallery')}}",
-                    method:"POST",
-                    headers:{
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    data:form_data,
-                    contentType:false,
-                    cache:false,
-                    processData:false,
-                    success:function(data){
-                        load_gallery();
-                        $('#error_gallery').html('<span class="text-danger">Cập nhập hình ảnh thành công</span>');
-                    }
-                });
-            });
+       <script type="text/javascript">
+           $(document).ready( function () {
+            $('#myTable').DataTable();
         });
     </script>
 
     <script type="text/javascript">
-        function ChangeToSlug()
-        {
-            var slug;
+       $(document).ready(function(){
+        load_gallery();
+        function load_gallery(){
+            var pro_id = $('.pro_id').val();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url('/select-gallery')}}",
+                method:"POST",
+                data:{pro_id:pro_id,_token:_token},
+                success:function(data){
+                    $('#gallery_load').html(data);
+                }
+            });
+        }
+
+        $('#file').change(function(){
+            var error = '';
+            var files = $('#file')[0].files;
+
+            if(files.length>5){
+                error+='<p>Bạn không được chọn quá 5 ảnh</p>';
+            }else if(files.length==''){
+                error+='<p>Chưa có ảnh nào được chọn</p>';
+            }else if(files.size>2000000){
+                error+='<p>Bạn không được chọn ảnh lớn hơn 2MB</p>';
+            }
+
+            if(error==''){
+
+            }else{
+                $('#file').val('');
+                $('#error_gallery').html('<span class="text-danger">'+error+'</span>');
+                return false;
+            }
+        });
+
+        $(document).on('blur','.edit_gallery_name',function(){
+            var gal_id = $(this).data('gal_id');
+            var gal_text = $(this).text();
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url:"{{url('/update-gallery-name')}}",
+                method:"POST",
+                data:{gal_id:gal_id,gal_text:gal_text,_token:_token},
+                success:function(data){
+                    load_gallery();
+                    $('#error_gallery').html('<span class="text-danger">Cập nhập tên hình ảnh thành công</span>');
+                }
+            });
+        });
+
+        $(document).on('click','.delete-gallery',function(){
+            var x = confirm('Bạn có chắc là muốn xóa hình ảnh này không?');
+            var gal_id = $(this).data('gal_id');
+            var _token = $('input[name="_token"]').val();
+            if(x){
+                $.ajax({
+                    url:"{{url('/delete-gallery')}}",
+                    method:"POST",
+                    data:{gal_id:gal_id,_token:_token},
+                    success:function(data){
+                        load_gallery();
+                        $('#error_gallery').html('<span class="text-danger">Xóa hình ảnh thành công</span>');
+                    }
+                });
+            }
+        });
+
+        $(document).on('change','.file_image',function(){
+            var gal_id = $(this).data('gal_id');
+            var image = document.getElementById('file-'+gal_id).files[0];
+
+            var form_data = new FormData();
+            form_data.append("file",document.getElementById('file-'+gal_id).files[0]);
+            form_data.append('gal_id',gal_id);
+
+            $.ajax({
+                url:"{{url('/update-gallery')}}",
+                method:"POST",
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data:form_data,
+                contentType:false,
+                cache:false,
+                processData:false,
+                success:function(data){
+                    load_gallery();
+                    $('#error_gallery').html('<span class="text-danger">Cập nhập hình ảnh thành công</span>');
+                }
+            });
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    function ChangeToSlug()
+    {
+        var slug;
 
             //Lấy text từ thẻ input title 
             slug = document.getElementById("slug").value;
