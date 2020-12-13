@@ -56,7 +56,14 @@
                                     <div class="quantity">
                                         <input type="number" size="4" class="cart_product_qty_{{$product_chitiet->product_id}}" title="Qty" value="1" name="quantity" min="1" step="1">
                                     </div>
+                                    <?php
+                                        $customer_id = Session::get('customer_id');
+                                    ?>
+                                    @if($customer_id)
                                     <button type="button" data-id="{{$product_chitiet->product_id}}" class="btn btn-success add-to-cart" name="add-to-cart">Thêm vào giỏ hàng</button>
+                                    @else
+                                    <a href="{{URL::to('/login-customer')}}" class="btn btn-success">Thêm vào giỏ hàng</a>
+                                    @endif
                                 </form>   
 
                                 <div class="product-inner-category">

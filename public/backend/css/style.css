@@ -1886,16 +1886,16 @@ header .form-inline {
   white-space: nowrap;
   margin: 0.1em 0; }
 
-.morris-hover.morris-default-style {
+/*.morris-hover.morris-default-style {
   border-radius: 2px;
   padding: 10px 12px;
   color: #666;
   background: rgba(0, 0, 0, 0.7);
   border: none;
-  color: #fff !important; }
+  color: #fff !important; }*/
 
-.morris-hover-point {
-  color: rgba(255, 255, 255, 0.8) !important; }
+/*.morris-hover-point {
+  color: rgba(255, 255, 255, 0.8) !important; }*/
 
 #morris-bar-chart {
   height: 285px; }

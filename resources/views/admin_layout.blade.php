@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('public/backend/css/style.css')}}">
     <link href="{{asset('public/frontend/css/sweetalert.css')}}" rel="stylesheet">
 
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
     <link href="{{asset('public/backend/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/chartist@0.11.0/dist/chartist.min.css" rel="stylesheet">
@@ -220,8 +221,17 @@
         <script src="assets/js/init/fullcalendar-init.js"></script>
         <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
 
+        <!-- morris js -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
         <script src="{{asset('public/backend/js/jquery.dataTables.min.js')}}"></script>
-        
+
+        <script src="{{asset('public/sales/js/moment/moment.min.js')}}"></script>
+        <script src="{{asset('public/sales/js/daterangepicker/daterangepicker.js')}}"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
         <script>
            CKEDITOR.replace('ckeditor');
            CKEDITOR.replace('ckeditor1');
@@ -235,6 +245,88 @@
             $('#myTable').DataTable();
         });
     </script>
+
+    <script type="text/javascript">
+  $(document).ready(function(){
+      statistical30days();
+      var chart =  new Morris.Bar({
+
+      element: 'chart',
+      //option char
+      lineColors:['red','blue','green'],
+      parseTime:false,
+      hideHover:'auto',
+      xkey: 'period',
+      ykeys: ['sales','percentage_fee','quantity'],
+      stacked:true,
+      labels: ['Doanh số','Chiết khấu','Số lượng sản phẩm bán']
+    });
+
+    function statistical30days(){
+      var _token = $('input[name="_token"]').val();
+      $.ajax({
+      url:"{{url('/statistical-30-days-admin')}}",
+      method:"POST",
+      dataType:"JSON",
+      data:{_token:_token},
+      success:function(data){
+         chart.setData(data);
+      }
+    });
+    }
+
+    $('#btn-dashboard-filter').click(function(){
+    var _token = $('input[name="_token"]').val();
+    var from_date = $('#datepicker').val();
+    var to_date = $('#datepicker2').val();
+
+    $.ajax({
+      url:"{{url('/filter-by-date-admin')}}",
+      method:"POST",
+      dataType:"JSON",
+      data:{_token:_token,from_date:from_date,to_date:to_date},
+      success:function(data){
+         chart.setData(data);
+      }
+    });
+  });
+
+  $('.dashboard-filter').change(function(){
+    var _token = $('input[name="_token"]').val();
+    var dashboard_value = $(this).val();
+
+    $.ajax({
+      url:"{{url('/dashboard-filter-admin')}}",
+      method:"POST",
+      dataType:"JSON",
+      data:{_token:_token,dashboard_value:dashboard_value},
+      success:function(data){
+         chart.setData(data);
+      }
+    });
+  });
+
+  });
+</script>
+
+    <script type="text/javascript">
+  $( function() {
+    $( "#datepicker" ).datepicker({
+      prevText:"Tháng trước",
+      nextText:"Tháng sau",
+      dateFormat:"yy-mm-dd",
+      dayNamesMin:["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"],
+      duration:"slow"
+    });
+    $( "#datepicker2" ).datepicker({
+      prevText:"Tháng trước",
+      nextText:"Tháng sau",
+      dateFormat:"yy-mm-dd",
+      dayNamesMin:["Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7","Chủ nhật"],
+      duration:"slow"
+    });
+  } );
+</script>
 
     <script type="text/javascript">
        $(document).ready(function(){
@@ -568,10 +660,16 @@
             $("input[name='order_product_id']").each(function(){
                 order_product_id.push($(this).val());
             });
+            //Lay ra shop_id
+             shop_id = [];
+            $("input[name='order_shop_id']").each(function(){
+                shop_id.push($(this).val());
+            });
+
             $.ajax({
                 url: '{{url('/update-order-quantity')}}',
                 method: 'POST',
-                data:{order_status:order_status,order_id:order_id,_token:_token,quantity:quantity,order_product_id:order_product_id},
+                data:{order_status:order_status,order_id:order_id,_token:_token,quantity:quantity,order_product_id:order_product_id,shop_id:shop_id},
                 success:function(){
                     alert('Cập nhập tình trạng đơn hàng thành công!');  
                     location.reload();  

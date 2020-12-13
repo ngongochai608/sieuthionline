@@ -106,9 +106,10 @@ public function load_comment(Request $request){
 }
 
 public function statistical_30_days(Request $request){
+    $shop_id = Session::get('shop_id');
     $sub30days = carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
     $now = carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-    $get = statistical::whereBetween('order_date',[$sub30days,$now])->orderBy('order_date','ASC')->get();
+    $get = statistical::whereBetween('order_date',[$sub30days,$now])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
 
     foreach ($get as $key => $val) {
         $chart_data[] = array(
@@ -121,11 +122,12 @@ public function statistical_30_days(Request $request){
 }
 
 public function filter_by_date(Request $request){
+    $shop_id = Session::get('shop_id');
     $data = $request->all();
     $from_date = $request->from_date;
     $to_date = $request->to_date;
 
-    $get = statistical::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->get();
+    $get = statistical::whereBetween('order_date',[$from_date,$to_date])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
 
     foreach ($get as $key => $val) {
         $chart_data[] = array(
@@ -138,6 +140,7 @@ public function filter_by_date(Request $request){
 }
 
 public function dashboard_filter(Request $request){
+    $shop_id = Session::get('shop_id');
     $data = $request->all();
     $dauthangnay = Carbon::now("Asia/Ho_Chi_Minh")->startOfMonth()->toDateString();
     $dau_thangtruoc = Carbon::now("Asia/Ho_Chi_Minh")->subMonth()->startOfMonth()->toDateString();
@@ -149,13 +152,13 @@ public function dashboard_filter(Request $request){
     $now = Carbon::now("Asia/Ho_Chi_Minh")->toDateString();
 
     if ($data['dashboard_value']=='7ngay') {
-        $get = statistical::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->get();
+        $get = statistical::whereBetween('order_date',[$sub7days,$now])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
     }else if($data['dashboard_value']=='thangtruoc'){
-        $get = statistical::whereBetween('order_date',[$dau_thangtruoc,$cuoi_thangtruoc])->orderBy('order_date','ASC')->get();
+        $get = statistical::whereBetween('order_date',[$dau_thangtruoc,$cuoi_thangtruoc])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
     }else if($data['dashboard_value']=='thangnay'){
-        $get = statistical::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->get();
+        $get = statistical::whereBetween('order_date',[$dauthangnay,$now])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
     }else{
-        $get = statistical::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->get();
+        $get = statistical::whereBetween('order_date',[$sub365days,$now])->orderBy('order_date','ASC')->where('shop_id',$shop_id)->get();
     }
 
     foreach ($get as $key => $val) {

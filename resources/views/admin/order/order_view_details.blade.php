@@ -140,6 +140,7 @@
                                         <input type="hidden" name="product_sales_quantity" class="order_quantity_{{$order_de->product_id}}" value="{{$order_de->product_sales_quantity }}">
                                         <input type="hidden" name="order_quantity_storage" class="order_quantity_storage_{{$order_de->product_id}}" value="{{$order_de->product->product_quantity }}">
                                         <input type="hidden" name="order_product_id" class="order_product_id" value="{{$order_de->product_id}}">
+                                        <input type="hidden" name="order_shop_id" class="order_shop_id" value="{{$order_de->shop_id}}">
                                     </td>
                                     <td>{{$order_de->product->product_quantity }}</td>
                                     <td>{{$order_de->shop_name }}</td>     

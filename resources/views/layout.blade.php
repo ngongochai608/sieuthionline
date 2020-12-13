@@ -89,19 +89,21 @@
                     <div class="logo" style="float: left;">
                         <a href="./trangchu"><img src="{{('public/frontend/images/logo1.png')}}" width="150"></a>
                     </div>
-                    <form class="form-inline active-cyan-4" action="{{URL::to('/tim-kiem')}}" method="GET" style="float: left;padding-left: 150px; padding-top: 12px;">
+                    <form class="form-inline active-cyan-4" autocomplete="off" action="{{URL::to('/tim-kiem')}}" method="GET" style="float: left;padding-left: 150px; padding-top: 12px;">
                         {{ csrf_field() }}
-                        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nhập tên sản phẩm cần tìm..." style="width: 450px;height: 40px;" name="keywords_submit">
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Nhập tên sản phẩm cần tìm..." id="search_keywords" style="position:relative;width: 450px;height: 40px;" name="keywords_submit">
                         <input type="submit" name="search_items" class="btn btn-primary btn-sm btn-search" value="Tìm kiếm">
+                        <div id="search_ajax" style="position:absolute;"></div>
+                        
                     </form>
                     @if(Session::get('customer_id')!=NULL)
                     <div class="shopping-item">
-                        <a href="{{URL::to('/cart')}}"><i class="fa fa-shopping-cart fa-lg"></i> 
+                        <a href="{{URL::to('/cart')}}"><i class="fa fa-shopping-cart fa-lg" style="color: #5a88ca;"></i> 
                             <span class="product-count" style="background: red;">{{$count_cart}}</span></a>
                         </div>
                         @elseif(Session::get('customer_id')==NULL)
                         <div class="shopping-item">
-                            <a href="{{URL::to('/login-customer')}}"><i class="fa fa-shopping-cart fa-lg"></i></a>
+                            <a href="{{URL::to('/login-customer')}}"><i class="fa fa-shopping-cart fa-lg" style="color: #5a88ca;"></i></a>
                         </div>
                         @endif
                     </div>  
@@ -217,15 +219,38 @@
     </script>
     <script src="{{asset('public/backend/ckeditor/ckeditor.js')}}"></script>
     <script>
-     CKEDITOR.replace('ckeditor');
-     CKEDITOR.replace('ckeditor1');
-     CKEDITOR.replace('ckeditor2');
-     CKEDITOR.replace('ckeditor3');
-     CKEDITOR.replace('id4');
- </script>
+       CKEDITOR.replace('ckeditor');
+       CKEDITOR.replace('ckeditor1');
+       CKEDITOR.replace('ckeditor2');
+       CKEDITOR.replace('ckeditor3');
+       CKEDITOR.replace('id4');
+   </script>
 
+   <script type="text/javascript">
+       $('#search_keywords').keyup(function(){
+        var query = $(this).val();
+        if (query!='') {
+            var _token = $('input[name="_token"]').val();
+            $.ajax({
+                url: "{{url('/autocomple-ajax')}}",
+                method: 'POST',
+                data:{query:query,_token:_token},
+                success:function(data){
+                    $('#search_ajax').fadeIn();
+                    $('#search_ajax').html(data);
+                }
+            });   
+        }else{
+            $('#search_ajax').fadeOut();
+        }
+    });
+       $(document).on('click','.li_search_ajax',function(){
+        $('#search_keywords').val($(this).text());
+        $('#search_ajax').fadeOut();
+    });
+</script>
 
- <script type="text/javascript">
+<script type="text/javascript">
     function remove_background(shop_id){
         for(var count=1;count<=5;count++){
             $('#'+shop_id+'-'+count).css('color','#ccc');
@@ -274,7 +299,7 @@
 </script>
 
 <script type="text/javascript">
- $(document).ready(function(){
+   $(document).ready(function(){
     load_comment();
     function load_comment(){
         var shop_id = $('.comment_shop_id').val();
@@ -309,7 +334,7 @@
 </script>
 
 <script type="text/javascript">
-   $(document).ready(function() {
+ $(document).ready(function() {
     $('#imageGallery').lightSlider({
         gallery:true,
         item:1,
@@ -363,32 +388,32 @@
             
         </script>
         <script type="text/javascript">
-           $(document).ready(function(){
+         $(document).ready(function(){
 
             $('.cancel-order').click(function(){
                 var order_code = $(this).data('id');
                 var _token = $('input[name="_token"]').val();
                 swal({
                     title: "Hủy đơn hàng",
-                  text: "Bạn có chắc chắn là muốn hủy đơn hàng này không?",
-                  type: "warning",
-                  showCancelButton: true,
-                  confirmButtonClass: "btn-danger",
-                  confirmButtonText: "Xác nhận, hủy đơn!",
-                  closeOnConfirm: false
-              },
-              function(){
-                   $.ajax({
-                        url: '{{url('/cancel-order')}}',
-                        method: 'POST',
-                        data:{order_code:order_code,_token:_token},
-                        success:function(){
-                            swal("Thành công!", "Đã hủy đơn hàng.", "success");
-                            location.reload();
-                        }
-                    }); 
-                  
-              });
+                    text: "Bạn có chắc chắn là muốn hủy đơn hàng này không?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-danger",
+                    confirmButtonText: "Xác nhận, hủy đơn!",
+                    closeOnConfirm: false
+                },
+                function(){
+                 $.ajax({
+                    url: '{{url('/cancel-order')}}',
+                    method: 'POST',
+                    data:{order_code:order_code,_token:_token},
+                    success:function(){
+                        swal("Thành công!", "Đã hủy đơn hàng.", "success");
+                        location.reload();
+                    }
+                }); 
+                 
+             });
             });
         });
     </script>

@@ -4,6 +4,7 @@
 Route::get('/','App\Http\Controllers\HomeController@index');
 Route::get('trangchu','App\Http\Controllers\HomeController@index');
 Route::get('/tim-kiem','App\Http\Controllers\HomeController@search');
+Route::post('/autocomple-ajax','App\Http\Controllers\HomeController@autocomple_ajax');
 //Shop
 Route::get('/register-shop','App\Http\Controllers\ShopController@register_shop');
 Route::post('/save-shop','App\Http\Controllers\ShopController@save_shop');
@@ -46,6 +47,10 @@ Route::post('reset-new-password-customer','App\Http\Controllers\MailController@r
 Route::get('/admin','App\Http\Controllers\AdminController@index');
 Route::get('/dashboard','App\Http\Controllers\AdminController@show_dashboard');
 Route::get('/admin-dashboard','App\Http\Controllers\AdminController@dashboard');
+
+Route::post('/filter-by-date-admin','App\Http\Controllers\AdminController@filter_by_date_admin');
+Route::post('/dashboard-filter-admin','App\Http\Controllers\AdminController@dashboard_filter_admin');
+Route::post('/statistical-30-days-admin','App\Http\Controllers\AdminController@statistical_30_days_admin');
 
 //Order
 Route::get('manager-order','App\Http\Controllers\OrderController@manager_order');

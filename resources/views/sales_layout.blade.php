@@ -208,8 +208,9 @@
 
       element: 'chart',
       //option char
-      lineColors:['#819C79','#FF6541','#FF6541'],
+      lineColors:['red','blue','#FF6541'],
       parseTime:false,
+      stacked:true,
       hideHover:'auto',
       xkey: 'period',
       ykeys: ['sales','quantity'],

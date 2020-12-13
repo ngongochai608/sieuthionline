@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class statistical extends Model
+class statistical_admin extends Model
 {
     use HasFactory;
     public $timestamps = false; //set time to false
     protected $fillable = [
-    	'order_date', 'sales','quantity','profit','percentage_fee','shop_id'
+    	'order_date', 'sales_admin','quantity_admin','percentage_fee_admin'
     ];
-    protected $primaryKey = 'id_statistical';
- 	protected $table = 'tbl_statistical';
+    protected $primaryKey = 'statistical_admin_id';
+ 	protected $table = 'tbl_statistical_admin';
 }
