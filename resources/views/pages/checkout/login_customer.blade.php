@@ -15,6 +15,11 @@
                 </div>
                 <div class="panel-body">
                     <?php
+                    $message = Session::get('message');
+                    if ($message) {
+                        echo '<p class="alert alert-success">'.$message.'</p>';
+                        Session::put('message',null);
+                    }
                     $message_error = Session::get('message_error');
                     if ($message_error) {
                         echo '<p class="alert alert-danger">'.$message_error.'</p>';

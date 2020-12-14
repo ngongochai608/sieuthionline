@@ -47,6 +47,15 @@ class AdminController extends Controller
     	$count_category = category_product::count();
     	$count_shop = shop::count();
     	$count_customer = customer::count();
+        $now = carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $dauthang = Carbon::now("Asia/Ho_Chi_Minh")->startOfMonth()->toDateString();
+        $count_order_success = order::whereBetween('order_date',[$dauthang,$now])->where('order_status',3)->get();
+        $revenue=0;
+        $count_order=0;
+        foreach ($count_order_success as $key => $val) {
+            $revenue += $val->total;
+            $count_order+=1;
+        }
         $admin = admin::get();
         $admin_roles = admin_roles::get();
         $count_author = 0;
@@ -63,7 +72,7 @@ class AdminController extends Controller
                 }
             }
         }
-    	return view('admin.dashboard')->with(compact('count_product','count_category','count_shop','count_customer','count_author','count_logictis'));
+    	return view('admin.dashboard')->with(compact('count_product','count_category','count_shop','count_customer','count_author','count_logictis','revenue','count_order'));
     }
 
     public function statistical_30_days_admin(Request $request){

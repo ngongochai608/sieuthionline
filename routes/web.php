@@ -24,6 +24,8 @@ Route::get('order-details-customer&{order_code}','App\Http\Controllers\CheckoutC
 Route::get('change-password-customer','App\Http\Controllers\CheckoutController@change_password_customer');
 Route::post('change-password-cus','App\Http\Controllers\CheckoutController@change_password_cus');
 Route::post('cancel-order','App\Http\Controllers\OrderController@cancel_order');
+Route::post('access-customer','App\Http\Controllers\CheckoutController@access_customer');
+Route::get('access-account-notify','App\Http\Controllers\CheckoutController@access_account_notify');
 //Product
 Route::get('allproduct','App\Http\Controllers\ProductController@allproduct');
 Route::get('chi-tiet-san-pham&{product_slug}&{shop_id}&dm={category_id}','App\Http\Controllers\ProductController@chitietsanpham');

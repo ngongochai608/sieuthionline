@@ -37,6 +37,17 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <input type="radio" name="sex_customer" value="Nam">
+                                <label>Nam</label>&nbsp;&nbsp;
+                                <input type="radio" name="sex_customer" value="Nữ">
+                                <label>Nữ</label>&nbsp;&nbsp;
+                                <input type="radio" name="sex_customer" value="Khác">
+                                <label>Khác</label>&nbsp;&nbsp;
+                                @if($errors->has('sex_customer'))
+                                <p class="alert alert-danger">{{ $errors->first('sex_customer') }}</p>
+                                @endif
+                            </div>
+                            <div class="form-group">
                                 <input type="text" name="phone_customer" placeholder="Số điện thoại" class="form-control">@if($errors->has('phone_customer'))
                                 <p class="alert alert-danger">{{ $errors->first('phone_customer') }}</p>
                                 @endif

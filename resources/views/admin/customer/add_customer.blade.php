@@ -32,6 +32,20 @@
                     </div>
                 </div>
                 <div class="row form-group">
+                    <div class="col col-md-3"><label for="email-input" class=" form-control-label">Giới tính</label></div>
+                    <div class="col-12 col-md-6">
+                        <input type="radio" name="sex_customer" value="Nam">
+                        <label for="male">Nam</label>&nbsp;&nbsp;
+                        <input type="radio" name="sex_customer" value="Nữ">
+                        <label for="female">Nữ</label>&nbsp;&nbsp;
+                        <input type="radio" name="sex_customer" value="Khác">
+                        <label for="female">Khác</label>
+                        @if($errors->has('sex_customer'))
+                            <p class="alert alert-danger">{{ $errors->first('sex_customer') }}</p>                  
+                        @endif
+                    </div>
+                </div>
+                <div class="row form-group">
                     <div class="col col-md-3"><label for="file-input" class=" form-control-label">Mật khẩu</label></div>
                     <div class="col-12 col-md-6"><input type="password" name="password_customer" class="form-control">
                     @if($errors->has('password_customer'))

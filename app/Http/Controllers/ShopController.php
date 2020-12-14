@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use File;
+use Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use App\Models\shop;
@@ -16,6 +17,7 @@ use App\Models\order_details;
 use App\Models\gallery;
 use App\Models\statistical;
 use App\Models\rating;
+use App\Models\comment_product;
 use Carbon\Carbon;
 use Auth;
 use Session;
@@ -34,7 +36,8 @@ class ShopController extends Controller
 }
 public function CheckLoginShop(){
     $shop_id = Session::get('shop_id');
-    if($shop_id) {
+    $shop = shop::where('shop_id',$shop_id)->first();
+    if($shop) {
        return Redirect::to('sales-dashboard');
    }else{
        return Redirect::to('sales')->send();
@@ -208,8 +211,27 @@ public function unactive_shop($shop_id){
 }
 public function active_shop($shop_id){
     $this->AuthLogin();
+    $shop = shop::where('shop_id',$shop_id)->first();
     shop::where('shop_id',$shop_id)->update(['shop_status'=>1]);
-    Session::put('message','Đã kích hoạt tài khoản gian hàng');
+    
+    $now = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-y');
+    $title_mail = "Siêu Thị Online xác nhận duyệt gian hàng ".' '.$now;
+
+    $name_shop_owner = $shop->name_shop_owner;
+    $shop_email = $shop->shop_email;
+    
+
+    if ($shop_email) {
+      $to_email = $shop_email;
+
+      $data = array("name"=>$title_mail,"email"=>$shop_email,"name_shop_owner"=>$name_shop_owner);
+
+      Mail::send('admin.shop.active_account_shop',['data'=>$data],function($message) use ($title_mail,$data){
+          $message->to($data['email'])->subject($title_mail);
+          $message->from($data['email'],$title_mail);
+      });
+  }
+  Session::put('message','Đã kích hoạt tài khoản gian hàng');
     return Redirect::to('all-shop-admin');
 }
 
@@ -311,6 +333,7 @@ public function save_shop(Request $request){
         'shop_password_confirm' => 'required|same:shop_password',
         'shop_address' => 'required|min:10|max:200',
         'shop_phone' => 'required|regex:/(0)[0-9]{9}/|max:10',
+        'name_shop_owner' => 'required|min:10|max:200',
     ];
     $messages = [
             //name
@@ -319,9 +342,9 @@ public function save_shop(Request $request){
         'shop_name.max' => 'Tên không được nhiều hơn 40 ký tự !',
         'shop_name.unique' => 'Tên gian hàng này đã có người đặt , bạn vui lòng chọn tên khác !',
 
-        'name_shop_owner.required' => 'Tên không được để trống !',
-        'name_shop_owner.min' => 'Tên không được ít hơn 6 ký tự !',
-        'name_shop_owner.max' => 'Tên không được nhiều hơn 40 ký tự !',
+        'name_shop_owner.required' => 'Tên chủ gian hàng không được để trống !',
+        'name_shop_owner.min' => 'Tên chủ gian hàng không được ít hơn 6 ký tự !',
+        'name_shop_owner.max' => 'Tên chủ gian hàng không được nhiều hơn 40 ký tự !',
             //email
         'shop_email.required' => 'Trường email không được để trống !',
         'shop_email.email' => 'Trường email không hợp lệ !',
@@ -358,7 +381,7 @@ public function save_shop(Request $request){
        $shop->shop_status = 0;
        $shop->create_at = now();
        $shop->save();
-       return Redirect::to('register-shop')->with('message','Đã đăng ký gian hàng, vui lòng chờ thông báo xét duyệt từ ban quản lý Siêu Thị Online thông qua điện thoại!');
+       return Redirect::to('register-shop')->with('message','Đã đăng ký gian hàng, vui lòng chờ thông báo xét duyệt từ ban quản lý Siêu Thị Online thông qua Email bạn dùng để đăng ký!');
    }
 }
 public function loginshop(Request $request){
@@ -522,6 +545,16 @@ public function update_shop_admin(Request $request,$shop_id){
 public function delete_shop_admin($shop_id){
     $this->AuthLogin();
     shop::where('shop_id',$shop_id)->delete();
+    $product_shop = product::where('shop_id',$shop_id)->get();
+    product::where('shop_id',$shop_id)->delete();
+    foreach ($product_shop as $key => $pro_shop) {
+      $pro_shop_id = $pro_shop->product_id;
+    }
+    gallery::where('product_id',$pro_shop_id)->delete();
+    comment_product::where('product_id',$pro_shop_id)->delete();
+    statistical::where('shop_id',$shop_id)->delete();
+    order_details::where('shop_id',$shop_id)->delete();
+    rating::where('shop_id',$shop_id)->delete();
     return Redirect::to('all-shop-admin')->with('message','Xóa gian hàng thành công!');
 }
 public function add_product_shop(){

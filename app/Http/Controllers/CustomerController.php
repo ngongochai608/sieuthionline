@@ -45,6 +45,7 @@ public function save_customer(Request $request){
   'password_customer' => 'required|min:6|max:20',
   'password_customer_confirm' => 'required|same:password_customer',
   'address_customer' => 'required|max:150',
+  'sex_customer' => 'required',
 ];
 $messages = [
   'name_customer.required' => 'Họ tên không được để trống !',
@@ -68,6 +69,8 @@ $messages = [
 
   'address_customer.required' => 'Bạn chưa nhập địa chỉ !',
   'address_customer.max' => 'Địa chỉ không được vượt quá 150 ký tự !',
+
+  'sex_customer.required' => 'Bạn chưa chọn giới tính !',
 ];
 
 $validator = Validator::make($request->all(),$rules,$messages);
@@ -81,6 +84,8 @@ if ($validator->fails()) {
   $customer->customer_password = md5($data['password_customer']);
   $customer->customer_phone = $data['phone_customer'];
   $customer->customer_address = $data['address_customer'];
+  $customer->customer_sex = $data['sex_customer'];
+  $customer->customer_status = 1;
   $customer->save();
   return Redirect('add-customer-admin')->with('message','Đăng ký tài khoản khách hàng thành công !');
 }        

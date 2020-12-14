@@ -126,7 +126,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count"><?php echo $count_shop ?></span></div>
+                                <div class="stat-text"><span class="count"><?php echo $count_order ?></span></div>
                                 <div class="stat-heading">Đơn hàng thành công tháng này</div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="stat-content">
                             <div class="text-left dib">
-                                <div class="stat-text"><span class="count"><?php echo $count_customer ?></span></div>
+                                <div class="stat-text"><span class="count"><?php echo number_format($revenue ,0,',','.') ?>đ</span></div>
                                 <div class="stat-heading">Doanh thu tháng này</div>
                             </div>
                         </div>
