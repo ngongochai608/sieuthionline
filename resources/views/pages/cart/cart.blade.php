@@ -100,16 +100,6 @@
                                 <p class="col-md-6">Tổng cộng :</p>
                                 <b class="col-md-6" style="text-align: right;color: #5a88ca">{{number_format($total + $phiship,0,',','.')}}đ</b>   
                             </div>
-                            <div class="row">
-                                <form>
-                                <div class="col-md-8">
-                                    <input type="" name="" placeholder="Mã giảm giá" class="form-control" style="    width: 233px;">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="submit" class="btn btn-sm" value="Áp dụng" style="padding: 8px 18px;">
-                                </div>
-                                </form>
-                            </div>
                             @if (Session::get('customer_id'))
                             <a class="btn btn-success btn-sm btn-block" href="{{URL::to('/thanhtoan')}}">Xác nhận đơn hàng</a>
                             @else

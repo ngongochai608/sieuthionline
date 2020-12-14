@@ -97,6 +97,17 @@
                                 <p class="col-md-6" style="text-align: right;">{{number_format($phiship,0,',','.')}}đ</p>   
                             </div>      
                             <div class="row">
+                                <form method="POST" action="{{url::to('/check-coupon')}}">
+                                    @csrf
+                                    <div class="col-md-8">
+                                        <input type="text" name="coupon" placeholder="Mã giảm giá" class="form-control" style="width: 233px;">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="submit" class="btn btn-sm" value="Áp dụng" style="padding: 8px 18px;">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row" style="padding-top: 15px;">
                                 <p class="col-md-6">Tổng cộng :</p>
                                 <?php
                                     $total_order = $total + $phiship;

@@ -24,11 +24,6 @@ class GalleryController extends Controller
 		}
 	}
 
-	public function add_gallery_product_admin($product_id){
-		$pro_id = $product_id;
-		return view('admin.gallery.add_gallery')->with(compact('pro_id'));
-	}
-
 	public function add_gallery_product_shop($product_id){
 		$pro_id = $product_id;
 		$shop_id_ss = Session::get('shop_id');
@@ -114,7 +109,7 @@ class GalleryController extends Controller
 				<td contenteditable class="edit_gallery_name" data-gal_id="'.$val_gallery->gallery_id.'";>'.$val_gallery->gallery_name.'</td>
 				<td>
 				<img src="public/uploads/gallery/'.$val_gallery->gallery_image.'" height="100" width="100" class="img-thumbnail"><br/>
-				<input type="file" class="file_image" style="width:40%;" data-gal_id="'.$val_gallery->gallery_id.'"; id="file-'.$val_gallery->gallery_id.'"  name="file" accept="image/*">
+				<input type="file" class="file_image" style="width:40%;" data-gal_id="'.$val_gallery->gallery_id.'"; id="file-'.$val_gallery->gallery_id.'"  name="file" accept="image/*" />
 				</td>
 				<td>
 				<button type="button" data-gal_id="'.$val_gallery->gallery_id.'"; class="btn btn-danger btn-sm delete-gallery" class="btn btn-danger">Xóa</button>

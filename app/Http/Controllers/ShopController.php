@@ -296,7 +296,7 @@ public function register_shop(){
     return view('pages.shop.register_shop')->with(compact('count_cart'));
 }
 public function all_product_shop(){
-    $this->all_product_shop();
+    $this->CheckLoginShop();
     $shop_id = Session::get('shop_id');
     $order_new = order_details::where('shop_id',$shop_id)->join('tbl_order','tbl_order.order_code','=','tbl_order_details.order_code')->where('order_status',1)->count();
     $shop_product = product::orderby('product_id','desc')->where('shop_id',$shop_id)->get();

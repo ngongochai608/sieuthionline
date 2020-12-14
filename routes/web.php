@@ -37,6 +37,11 @@ Route::get('delete-product-cart/{session_id}','App\Http\Controllers\CartControll
 Route::post('add-cart','App\Http\Controllers\CartController@add_cart');
 Route::post('update-cart','App\Http\Controllers\CartController@update_cart');
 Route::post('confirm-order','App\Http\Controllers\CartController@confirm_order');
+//Coupon
+Route::get('add-coupon-admin','App\Http\Controllers\CouponController@add_coupon_admin');
+Route::post('check-coupon','App\Http\Controllers\CouponController@check_coupon');
+Route::post('insert-coupon-admin','App\Http\Controllers\CouponController@insert_coupon_admin');
+
 //Gallery
 Route::get('add-gallery-product-shop&{product_id}','App\Http\Controllers\GalleryController@add_gallery_product_shop');
 //Mail
@@ -90,7 +95,6 @@ Route::post('/update-product-admin/{product_id}','App\Http\Controllers\ProductCo
 Route::get('/unactive-product/{product_id}','App\Http\Controllers\ProductController@unactive_product');
 Route::get('/active-product/{product_id}','App\Http\Controllers\ProductController@active_product');
 //Gallery
-Route::get('/add-gallery-product-admin&{product_id}','App\Http\Controllers\GalleryController@add_gallery_product_admin');
 Route::post('/select-gallery','App\Http\Controllers\GalleryController@select_gallery');
 Route::post('/insert-gallery/{pro_id}','App\Http\Controllers\GalleryController@insert_gallery');
 Route::post('/update-gallery-name','App\Http\Controllers\GalleryController@update_gallery_name');

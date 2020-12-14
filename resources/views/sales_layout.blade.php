@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quản lý gian hàng - Siêu thị online</title>
 
+  <meta name="csrf-token" content="{{csrf_token()}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -203,8 +204,8 @@
 <!-- morris chart -->
 <script type="text/javascript">
   $(document).ready(function(){
-      statistical30days();
-      var chart =  new Morris.Bar({
+    statistical30days();
+    var chart =  new Morris.Bar({
 
       element: 'chart',
       //option char
@@ -220,46 +221,46 @@
     function statistical30days(){
       var _token = $('input[name="_token"]').val();
       $.ajax({
-      url:"{{url('/statistical-30-days')}}",
-      method:"POST",
-      dataType:"JSON",
-      data:{_token:_token},
-      success:function(data){
+        url:"{{url('/statistical-30-days')}}",
+        method:"POST",
+        dataType:"JSON",
+        data:{_token:_token},
+        success:function(data){
          chart.setData(data);
-      }
-    });
+       }
+     });
     }
 
     $('#btn-dashboard-filter').click(function(){
-    var _token = $('input[name="_token"]').val();
-    var from_date = $('#datepicker').val();
-    var to_date = $('#datepicker2').val();
+      var _token = $('input[name="_token"]').val();
+      var from_date = $('#datepicker').val();
+      var to_date = $('#datepicker2').val();
 
-    $.ajax({
-      url:"{{url('/filter-by-date')}}",
-      method:"POST",
-      dataType:"JSON",
-      data:{_token:_token,from_date:from_date,to_date:to_date},
-      success:function(data){
+      $.ajax({
+        url:"{{url('/filter-by-date')}}",
+        method:"POST",
+        dataType:"JSON",
+        data:{_token:_token,from_date:from_date,to_date:to_date},
+        success:function(data){
          chart.setData(data);
-      }
+       }
+     });
     });
-  });
 
-  $('.dashboard-filter').change(function(){
-    var _token = $('input[name="_token"]').val();
-    var dashboard_value = $(this).val();
+    $('.dashboard-filter').change(function(){
+      var _token = $('input[name="_token"]').val();
+      var dashboard_value = $(this).val();
 
-    $.ajax({
-      url:"{{url('/dashboard-filter')}}",
-      method:"POST",
-      dataType:"JSON",
-      data:{_token:_token,dashboard_value:dashboard_value},
-      success:function(data){
+      $.ajax({
+        url:"{{url('/dashboard-filter')}}",
+        method:"POST",
+        dataType:"JSON",
+        data:{_token:_token,dashboard_value:dashboard_value},
+        success:function(data){
          chart.setData(data);
-      }
+       }
+     });
     });
-  });
 
   });
 </script>
@@ -282,7 +283,7 @@
     });
   } );
 </script>
-  
+
 <script>
  CKEDITOR.replace('ckeditor');
  CKEDITOR.replace('ckeditor1');

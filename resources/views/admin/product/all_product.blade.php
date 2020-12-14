@@ -57,7 +57,6 @@
                                     <td>{{ $all_product->category_name }}</td>
                                     <td>{{ $all_product->product_sold }} sản phẩm</td>
                                     <td><img src="public/uploads/product/{{ $all_product->product_image }}" height="60" width="60" class="img-thumbnail">
-                                        <a href="{{URL::to('/add-gallery-product-admin&'.$all_product->product_id)}}" class="btn btn-primary btn-sm">Thêm Gallery</a>
                                     </td>
                                     <td>{{number_format($all_product->product_price ,0,',','.')}}đ</td>
                                     <td>{{ $all_product->shop_name }}</td>

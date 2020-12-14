@@ -35,6 +35,8 @@ class CartController extends Controller
     	return view('pages.cart.cart')->with(compact('order_new','count_cart','customer'));
     }
 
+   
+
     public function payment(){
         $cart = Session::get('cart');
         if ($cart==true) {
